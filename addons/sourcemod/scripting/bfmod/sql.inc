@@ -61,6 +61,8 @@ void saveClientData(int client) {
   GetClientAuthId(client, AuthId_Steam3, steamid, sizeof(steamid));
   char querySave[256];
   Format(querySave, sizeof(querySave), "INSERT OR REPLACE INTO bfmod(steamid, lvl, exp) VALUES(\"%s\", %d, %d)", steamid, clientLvl[client], clientExp[client]);
-  SQL_FastQuery(db, querySave);
+  db.Query(saveQuertCB, querySave);
   PrintToServer("[BFMod][Save] client: %N load lvl %d exp %d", client, clientLvl[client], clientExp[client]);
 }
+
+public void saveQuertCB(Handle owner, Handle hndl, const char[] error, any data) {}
