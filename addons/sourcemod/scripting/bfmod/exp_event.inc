@@ -35,7 +35,7 @@ public Action expEventDeath(Event event, const char[] name, bool dontBroadcast) 
   if (IsValidClient(assister)) {
     int exp = giveExp(assister, ASSIST_EXP);
     CPrintToChat(assister, "%s %t", MOD_NAME, "bfmod_exp_assist", giveExp(assister, exp));
-    printHudMSG(attacker, "Assist +%d", exp)
+    printHudMSG(assister, "Assist +%d", exp)
     checkLvl(assister);
   }
 
