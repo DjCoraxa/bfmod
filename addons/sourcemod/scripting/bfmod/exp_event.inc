@@ -2,12 +2,17 @@ int KILL_EXP = 100;
 int ASSIST_EXP = 25;
 int HS_BONUS = 30;
 int COMBO_BONUS = 5;
+int BOMB_PLANT_EXP = 300;
+int BOMB_DEFUSE_EXP = 300;
+int PLAYER_MIN_BOMB = 4;
 
 int combo[MAXPLAYERS + 1];
 
 void expEventInit() {
   HookEvent("player_spawn", expEventSpawn);
   HookEvent("player_death", expEventDeath);
+  HookEvent("bomb_planted", expEventBombPlant);
+  HookEvent("bomb_defused", expEventBombDefuse);
 }
 
 void removeCombo(int client) {
@@ -63,5 +68,31 @@ public Action expEventDeath(Event event, const char[] name, bool dontBroadcast) 
       printHudMSG(attacker, "Combo x%d bonus +%d", combo[attacker], comboExp);
       checkLvl(attacker);
     }
+  }
+}
+
+public Action expEventBombPlant(Event event, const char[] name, bool dontBroadcast) {
+  if (MaxClients < PLAYER_MIN_BOMB)
+    return;
+
+  int client = GetClientOfUserId(event.GetInt("userid"));
+  if (IsValidClient(client)) {
+    int bombExp = giveExp(client, BOMB_PLANT_EXP);
+    CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_bomb_plant", bombExp);
+    printHudMSG(client, "Plant bomb +%d", bombExp);
+    checkLvl(client);
+  }
+}
+
+public Action expEventBombDefuse(Event event, const char[] name, bool dontBroadcast) {
+  if (MaxClients < PLAYER_MIN_BOMB)
+    return;
+
+  int client = GetClientOfUserId(event.GetInt("userid"));
+  if (IsValidClient(client)) {
+    int bombExp = giveExp(client, BOMB_DEFUSE_EXP);
+    CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_bomb_defuse", bombExp);
+    printHudMSG(client, "Defuse bomb +%d", bombExp);
+    checkLvl(client);
   }
 }
