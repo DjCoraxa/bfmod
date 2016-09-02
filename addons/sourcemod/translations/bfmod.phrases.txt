@@ -1,0 +1,36 @@
+"Phrases" {
+  "bfmod_exp_kill" {
+    "#format" "{1:d}"
+    "en" "{purple}You got {green}{1} xp {purple}for {green}killing player"
+    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}za {green}zabicjie gracza"
+  }
+
+  "bfmod_exp_bonus_hs" {
+    "#format" "{1:d}"
+    "en" "{purple}You got {green}{1} xp {purple}extra for {green}HS"
+    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}bonusu za {green}HS"
+  }
+
+  "bfmod_exp_assist" {
+    "#format" "{1:d}"
+    "en" "{purple}You got {green}{1} xp {purple}for {green}assist"
+    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}za {green}asyste"
+  }
+
+  "bfmod_promote_rank" {
+    "#format" "{1:s}"
+    "en" "{purple}You are promoting to rank {green}{1}"
+    "pl" "{purple}Awansowałeś do rangi {green}{1}"
+  }
+
+  "bfmod_exp_combo_bonus" {
+    "#format" "{1:d},{2:d}"
+    "en" "{purple}You got {green}{1} xp {purple}bonus for {green}combo x{2}"
+    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}bonusu za {green}combo x{2}"
+  }
+
+  "bfmod_combo_zero" {
+    "en" "{purple}Your combo was zered"
+    "pl" "{purple}Twoje combo zostało wyzerowane"
+  }
+}
