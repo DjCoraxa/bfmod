@@ -7,6 +7,7 @@
 char MOD_NAME[] = "{darkred}[BFMod]";
 
 #include "bfmod/rank"
+#include "bfmod/shop"
 #include "bfmod/sql"
 #include "bfmod/exp_event"
 #include "bfmod/hud_sprite"
@@ -34,6 +35,7 @@ public void OnPluginStart() {
   initHeadSprite();
   initBFMenu();
   initBFTop();
+  initShop();
 }
 
 public void OnMapStart() {

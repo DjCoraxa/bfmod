@@ -29,7 +29,7 @@ public void prepareTopMenuCB(Database db, DBResultSet results, const char[] erro
   char name [64];
   while (results.FetchRow()) {
     results.FetchString(0, name, sizeof(name));
-    Format(buffer, sizeof(buffer), "%s [Rank %d][Exp %d / %d]", name, results.FetchInt(1), results.FetchInt(2), expTable[results.FetchInt(1)]);
+    Format(buffer, sizeof(buffer), "%s [Rank %d][Exp %d / %d][Cash %d]", name, results.FetchInt(1), results.FetchInt(2), expTable[results.FetchInt(1)], results.FetchInt(3));
     topMenu.AddItem("top", buffer);
   }
 }

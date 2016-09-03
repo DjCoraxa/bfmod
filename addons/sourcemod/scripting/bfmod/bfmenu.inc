@@ -13,6 +13,7 @@ void openBFMenu(int client) {
   menu.AddItem("perkdesc", "Perk desc [!perks]");
   menu.AddItem("bonus", "Bonus list [!bonus]");
   menu.AddItem("top", "Top15 rank [!bftop]");
+  menu.AddItem("shop", "Shop menu [!shop]");
   menu.Display(client, 60);
 }
 
@@ -24,6 +25,7 @@ public int BFMenuHandler(Menu menu, MenuAction action, int param1, int param2) {
         case 1: openPerkDescMenu(param1);
         case 2: openBonusMenu(param1);
         case 3: openTopMenu(param1);
+        case 4: openShopMenu(param1);
       }
     }
   } else if (action == MenuAction_End) {

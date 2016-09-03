@@ -92,6 +92,6 @@ public Action timerShowHud(Handle timer, any client) {
     checkElementsStack(client);
     PrintHintText(client, "<font size='15'>%s\n%s\n%s\n%s</font>", clientHudElements[client][0], clientHudElements[client][1], clientHudElements[client][2], clientHudElements[client][3])
   } else {
-    PrintHintText(client, "<font size='15'>[<font color='#345FA9'>Propaganda-</font><font color='#262E73'>GO</font><font color='#345FA9'>.pl</font>]\n[Rank: %d - %s]\n[Exp: %d / %d]\n[Perk: %s]</font>", clientLvl[client], rankName[clientLvl[client]], clientExp[client], expTable[clientLvl[client]], perkName[clientPerk[client]]);
+    PrintHintText(client, "<font size='15'>[<font color='#345FA9'>Propaganda-</font><font color='#262E73'>GO</font><font color='#345FA9'>.pl</font>]\n[Rank: %d - %s]\n[Exp: %d / %d]\n[Perk: %s][Cash: %d]</font>", clientLvl[client], rankName[clientLvl[client]], clientExp[client], expTable[clientLvl[client]], perkName[clientPerk[client]], clientCash[client]);
   }
 }

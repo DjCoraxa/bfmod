@@ -1,11 +1,12 @@
-char DATABASE_NAME[] = "bfmod_3"
+char DATABASE_NAME[] = "bfmod_4"
 
 char queryCreate[] = "\
   CREATE TABLE IF NOT EXISTS bfmod(\
     steamid VARCHAR PRIMARY KEY UNIQUE,\
     name VARCHAR NOT NULL,\
     lvl INT NOT NULL,\
-    exp INT NOT NULL\
+    exp INT NOT NULL,\
+    cash INT NOT NULL\
   )\
 ";
 
@@ -36,7 +37,7 @@ void loadClientData(int client) {
   GetClientAuthId(client, AuthId_Steam3, steamid, sizeof(steamid));
 
   char queryLoad[256];
-  Format(queryLoad, sizeof(queryLoad), "SELECT lvl, exp FROM bfmod WHERE steamid = '%s'", steamid);
+  Format(queryLoad, sizeof(queryLoad), "SELECT lvl, exp, cash FROM bfmod WHERE steamid = '%s'", steamid);
 
   DBResultSet query = SQL_Query(db, queryLoad);
 
@@ -50,10 +51,12 @@ void loadClientData(int client) {
       PrintToServer("[BFMod][Load] client: %N lvl: %d exp: %d", client, query.FetchInt(0), query.FetchInt(1));
       clientLvl[client] = query.FetchInt(0);
       clientExp[client] = query.FetchInt(1);
+      clientCash[client] = query.FetchInt(2);
     } else {
       PrintToServer("[BFMod] client: %N not found in DB, load default data", client);
       clientLvl[client] = 1;
       clientExp[client] = 0;
+      clientCash[client] = 0;
     }
   }
 }
@@ -69,7 +72,7 @@ void saveClientData(int client) {
   SQL_EscapeString(db, nick, buffer, sizeof(buffer));
 
   char querySave[256];
-  Format(querySave, sizeof(querySave), "INSERT OR REPLACE INTO bfmod(steamid, lvl, exp, name) VALUES(\"%s\", %d, %d, \"%s\")", steamid, clientLvl[client], clientExp[client], buffer);
+  Format(querySave, sizeof(querySave), "INSERT OR REPLACE INTO bfmod(steamid, lvl, exp, name, cash) VALUES(\"%s\", %d, %d, \"%s\", %d)", steamid, clientLvl[client], clientExp[client], buffer, clientCash[client]);
   db.Query(saveQuertCB, querySave);
 
   PrintToServer("[BFMod][Save] client: %N lvl: %d exp: %d", client, clientLvl[client], clientExp[client]);
@@ -77,7 +80,7 @@ void saveClientData(int client) {
 
 void getTopClients(int count, SQLQueryCallback callback) {
   char queryTop[256];
-  Format(queryTop, sizeof(queryTop), "SELECT name, lvl, exp FROM bfmod ORDER BY lvl DESC, exp DESC LIMIT %d;", count);
+  Format(queryTop, sizeof(queryTop), "SELECT name, lvl, exp, cash FROM bfmod ORDER BY lvl DESC, exp DESC LIMIT %d;", count);
   db.Query(callback, queryTop);
 }
 

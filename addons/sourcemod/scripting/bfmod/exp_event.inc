@@ -53,11 +53,14 @@ public Action expEventDeath(Event event, const char[] name, bool dontBroadcast) 
     printHudMSG(attacker, "[%s] <font color='#DB9773'>%N</font> +%d", weaponBuffer, victim, killExp);
     checkLvl(attacker);
 
+    ++clientCash[attacker];
+
     if (event.GetInt("headshot")) {
       int hsExp = giveExp(attacker, HS_BONUS);
       CPrintToChat(attacker, "%s %t", MOD_NAME, "bfmod_exp_bonus_hs", hsExp);
       printHudMSG(attacker, "Headshot bonus +%d", hsExp);
       checkLvl(attacker);
+      ++clientCash[attacker];
     }
 
     ++combo[attacker];
