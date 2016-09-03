@@ -40,6 +40,7 @@ public void OnPluginStart() {
 
 public void OnMapStart() {
   precacheRankHudSprite();
+  prepareTopMenu();
 }
 
 public void OnClientPutInServer(int client) {
