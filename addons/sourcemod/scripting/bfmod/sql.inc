@@ -3,6 +3,7 @@ char DATABASE_NAME[] = "bfmod_3"
 char queryCreate[] = "\
   CREATE TABLE IF NOT EXISTS bfmod(\
     steamid VARCHAR PRIMARY KEY UNIQUE,\
+    name VARCHAR NOT NULL,\
     lvl INT NOT NULL,\
     exp INT NOT NULL\
   )\
@@ -33,6 +34,7 @@ public Action sqlRoundEnd(Event event, const char[] name, bool dontBroadcast) {
 void loadClientData(int client) {
   char steamid[256];
   GetClientAuthId(client, AuthId_Steam3, steamid, sizeof(steamid));
+
   char queryLoad[256];
   Format(queryLoad, sizeof(queryLoad), "SELECT lvl, exp FROM bfmod WHERE steamid = '%s'", steamid);
 
@@ -45,7 +47,7 @@ void loadClientData(int client) {
   } else {
     PrintToServer("[BFMod] client: %N RowCount %d", client, query.RowCount);
     if (query.RowCount && query.FetchRow()) {
-      PrintToServer("[BFMod][Load] client: %N lvl %d exp %d", client, query.FetchInt(0), query.FetchInt(1));
+      PrintToServer("[BFMod][Load] client: %N lvl: %d exp: %d", client, query.FetchInt(0), query.FetchInt(1));
       clientLvl[client] = query.FetchInt(0);
       clientExp[client] = query.FetchInt(1);
     } else {
@@ -59,10 +61,24 @@ void loadClientData(int client) {
 void saveClientData(int client) {
   char steamid[256];
   GetClientAuthId(client, AuthId_Steam3, steamid, sizeof(steamid));
+
+  char nick[256];
+  GetClientName(client, nick, sizeof(nick));
+
+  char buffer[513];
+  SQL_EscapeString(db, nick, buffer, sizeof(buffer));
+
   char querySave[256];
-  Format(querySave, sizeof(querySave), "INSERT OR REPLACE INTO bfmod(steamid, lvl, exp) VALUES(\"%s\", %d, %d)", steamid, clientLvl[client], clientExp[client]);
+  Format(querySave, sizeof(querySave), "INSERT OR REPLACE INTO bfmod(steamid, lvl, exp, name) VALUES(\"%s\", %d, %d, \"%s\")", steamid, clientLvl[client], clientExp[client], buffer);
   db.Query(saveQuertCB, querySave);
-  PrintToServer("[BFMod][Save] client: %N load lvl %d exp %d", client, clientLvl[client], clientExp[client]);
+
+  PrintToServer("[BFMod][Save] client: %N lvl: %d exp: %d", client, clientLvl[client], clientExp[client]);
+}
+
+void getTopClients(int count, SQLQueryCallback callback) {
+  char queryTop[256];
+  Format(queryTop, sizeof(queryTop), "SELECT name, lvl, exp FROM bfmod ORDER BY lvl DESC, exp DESC LIMIT %d;", count);
+  db.Query(callback, queryTop);
 }
 
 public void saveQuertCB(Handle owner, Handle hndl, const char[] error, any data) {}

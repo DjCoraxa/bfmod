@@ -17,6 +17,18 @@
     "pl" "{purple}Otrzymałeś {green}{1} xp {purple}za {green}asyste"
   }
 
+  "bfmod_exp_bomb_plant" {
+    "#format" "{1:d}"
+    "en" "{purple}You got {green}{1} xp {purple}for {green}plant bomb"
+    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}za {green}podłożenie paki"
+  }
+
+  "bfmod_exp_bomb_defuse" {
+    "#format" "{1:d}"
+    "en" "{purple}You got {green}{1} xp {purple}for {green}defuse bomb"
+    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}za {green}rozbrojenie paki"
+  }
+
   "bfmod_promote_rank" {
     "#format" "{1:s}"
     "en" "{purple}You are promoting to rank {green}{1}"

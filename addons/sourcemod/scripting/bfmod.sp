@@ -17,6 +17,7 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 #include "bfmod/perk_menu"
 #include "bfmod/perk_descmenu"
 #include "bfmod/head_sprite"
+#include "bfmod/bftop"
 
 #include "bfmod/bfmenu"
 #include "bfmod/hud"
@@ -32,6 +33,7 @@ public void OnPluginStart() {
   initPerkDescMenu();
   initHeadSprite();
   initBFMenu();
+  initBFTop();
 }
 
 public void OnMapStart() {
