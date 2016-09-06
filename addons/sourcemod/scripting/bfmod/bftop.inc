@@ -25,11 +25,11 @@ public void prepareTopMenuCB(Database db, DBResultSet results, const char[] erro
 
   topMenu = new Menu(topMenuHandler);
   topMenu.SetTitle("BFMod TOP15")
-  char buffer[256];
+  char buffer[4096];
   char name [64];
-  while (results.FetchRow()) {
+  for (int i = 1; results.FetchRow(); ++i) {
     results.FetchString(0, name, sizeof(name));
-    Format(buffer, sizeof(buffer), "%s [Rank %d][Exp %d / %d][Cash %d]", name, results.FetchInt(1), results.FetchInt(2), expTable[results.FetchInt(1)], results.FetchInt(3));
+    Format(buffer, sizeof(buffer), "[Pos %d] %s [Rank %d][Exp %d / %d][Cash %d]", i, name, results.FetchInt(1), results.FetchInt(2), expTable[results.FetchInt(1)], results.FetchInt(3));
     topMenu.AddItem("top", buffer);
   }
 }
