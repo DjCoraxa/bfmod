@@ -34,6 +34,7 @@ public void OnPluginStart() {
   initBFTop();
   initShop();
   initEvent();
+  initHudSprite();
 }
 
 public void OnMapStart() {
