@@ -1,17 +1,15 @@
 // This code was copy from https://forums.alliedmods.net/showpost.php?p=2231099&postcount=22
 // I only change name var's and fn's
 
-new headSprite[MAXPLAYERS + 1] = {-1, ...};
+int headSprite[MAXPLAYERS + 1] = {-1, ...};
 
-public Action createModel(Handle timer, any client)
-{
+public Action createModel(Handle timer, any client){
     safeDelete(headSprite[client]);
     headSprite[client] = createIcon(client);
     placeAndBindIcon(client, headSprite[client]);
 }
 
-createIcon(int client)
-{
+int createIcon(int client) {
     char buffer[256];
     Format(buffer, sizeof(buffer), "materials/%s.vmt", rankSprite[clientLvl[client]]);
 
@@ -33,8 +31,8 @@ createIcon(int client)
     return -1;
 }
 
-placeAndBindIcon(int client, int entity) {
-    new Float:origin[3];
+void placeAndBindIcon(int client, int entity) {
+    float origin[3];
 
     if (IsValidEntity(entity)) {
         GetClientAbsOrigin(client, origin);
@@ -46,7 +44,7 @@ placeAndBindIcon(int client, int entity) {
     }
 }
 
-safeDelete(int entity) {
+void safeDelete(int entity) {
     if (IsValidEntity(entity)) {
         AcceptEntityInput(entity, "Kill");
     }
