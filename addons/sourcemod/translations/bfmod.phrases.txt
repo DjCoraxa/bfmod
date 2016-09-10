@@ -40,9 +40,4 @@
     "en" "{purple}You got {green}{1} xp {purple}bonus for {green}combo x{2}"
     "pl" "{purple}Otrzymałeś {green}{1} xp {purple}bonusu za {green}combo x{2}"
   }
-
-  "bfmod_combo_zero" {
-    "en" "{purple}Your combo was zered"
-    "pl" "{purple}Twoje combo zostało wyzerowane"
-  }
 }

@@ -14,7 +14,6 @@ public Action eventPlayerSpawn(Event event, const char[] name, bool dontBroadcas
   }
 
   CreateTimer(0.1, createModel, client);
-  removeCombo(client);
   giveSpawnBonus(client);
   setRankTag(client);
 }

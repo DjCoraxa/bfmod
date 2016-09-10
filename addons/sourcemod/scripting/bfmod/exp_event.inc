@@ -1,19 +1,9 @@
 int KILL_EXP = 100;
 int ASSIST_EXP = 25;
 int HS_BONUS = 30;
-//int COMBO_BONUS = 5;
 int BOMB_PLANT_EXP = 300;
 int BOMB_DEFUSE_EXP = 300;
 //int PLAYER_MIN_BOMB = 4;
-
-int combo[MAXPLAYERS + 1];
-
-void removeCombo(int client) {
-  if (combo[client] > 1) {
-    CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_combo_zero");
-  }
-  combo[client] = 0;
-}
 
 void giveExpForKill(int attacker, int victim, char[] weapon) {
   int exp = giveExp(attacker, KILL_EXP);
