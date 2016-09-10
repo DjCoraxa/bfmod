@@ -165,7 +165,7 @@ void precacheRankHudSprite() {
 }
 
 void checkLvl(int client) {
-  if (clientExp[client] >= expTable[clientLvl[client]]) {
+  while (clientExp[client] >= expTable[clientLvl[client]]) {
     clientExp[client] -= expTable[clientLvl[client]];
     ++clientLvl[client];
     onLvlUp(client, clientLvl[client]);
