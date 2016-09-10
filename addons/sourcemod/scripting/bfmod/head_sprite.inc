@@ -3,23 +3,6 @@
 
 new headSprite[MAXPLAYERS + 1] = {-1, ...};
 
-void initHeadSprite() {
-  HookEvent("player_spawn", headSpriteSpawn);
-  HookEvent("player_death", headSpriteDeath);
-}
-
-public Action headSpriteSpawn(Event event, const char[] name, bool dontBroadcast) {
-  int client = GetClientOfUserId(event.GetInt("userid"));
-  if(IsClientInGame(client) && IsPlayerAlive(client)) {
-    CreateTimer(0.1, createModel, client);
-  }
-}
-
-public Action headSpriteDeath(Event event, const char[] name, bool dontBroadcast) {
-  int client = GetClientOfUserId(event.GetInt("userid"));
-  safeDelete(headSprite[client]);
-}
-
 public Action createModel(Handle timer, any client)
 {
     safeDelete(headSprite[client]);

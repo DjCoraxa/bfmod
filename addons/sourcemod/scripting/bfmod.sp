@@ -22,20 +22,18 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 
 #include "bfmod/bfmenu"
 #include "bfmod/hud"
+#include "bfmod/event"
 
 public void OnPluginStart() {
   LoadTranslations("bfmod.phrases.txt");
   sqlInit();
-  expEventInit();
-  tagInit();
-  initRankBonus();
   initBonusMenu();
   initPerkMenu();
   initPerkDescMenu();
-  initHeadSprite();
   initBFMenu();
   initBFTop();
   initShop();
+  initEvent();
 }
 
 public void OnMapStart() {
@@ -46,7 +44,7 @@ public void OnMapStart() {
 public void OnClientPutInServer(int client) {
   loadClientData(client);
   createHud(client);
-  setTag(client);
+  setRankTag(client);
   hookPerkClient(client);
 }
 
