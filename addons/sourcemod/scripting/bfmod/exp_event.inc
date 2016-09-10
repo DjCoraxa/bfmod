@@ -3,7 +3,7 @@ int ASSIST_EXP = 25;
 int HS_BONUS = 30;
 int BOMB_PLANT_EXP = 300;
 int BOMB_DEFUSE_EXP = 300;
-//int PLAYER_MIN_BOMB = 4;
+int PLAYER_MIN_BOMB = 4;
 
 void giveExpForKill(int attacker, int victim, char[] weapon) {
   int exp = giveExp(attacker, KILL_EXP);
@@ -27,6 +27,10 @@ void giveExpForAssist(int assister) {
 }
 
 void giveExpForBombPlant(int client) {
+  if (GetClientCount(true) < PLAYER_MIN_BOMB) {
+    return;
+  }
+  
   int exp = giveExp(client, BOMB_PLANT_EXP);
   CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_bomb_plant", exp);
   printHudMSG(client, "Plant bomb +%d", exp);
@@ -34,6 +38,10 @@ void giveExpForBombPlant(int client) {
 }
 
 void giveExpForBombDefuse(int client) {
+  if (GetClientCount(true) < PLAYER_MIN_BOMB) {
+    return;
+  }
+
   int exp = giveExp(client, BOMB_DEFUSE_EXP);
   CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_bomb_defuse", exp);
   printHudMSG(client, "Defuse bomb +%d", exp);
