@@ -1,12 +1,27 @@
 // This code was copy from https://forums.alliedmods.net/showpost.php?p=2231099&postcount=22
 // I only change name var's and fn's
 
+float HIDE_HEAD_SPRITE_TIME = 10.0
+
 int headSprite[MAXPLAYERS + 1] = {-1, ...};
+Handle hideHeadSpriteTimer[MAXPLAYERS + 1] = {INVALID_HANDLE, ...}
 
 public Action createModel(Handle timer, any client){
+    if (hideHeadSpriteTimer[client] != INVALID_HANDLE) {
+      KillTimer(hideHeadSpriteTimer[client]);
+      hideHeadSpriteTimer[client] = INVALID_HANDLE;
+    }
+
     safeDelete(headSprite[client]);
     headSprite[client] = createIcon(client);
     placeAndBindIcon(client, headSprite[client]);
+
+    hideHeadSpriteTimer[client] = CreateTimer(HIDE_HEAD_SPRITE_TIME, hideSpriteTimerCB, client);
+}
+
+public Action hideSpriteTimerCB(Handle timer, any client) {
+  hideHeadSpriteTimer[client] = INVALID_HANDLE;
+  safeDelete(headSprite[client]);
 }
 
 int createIcon(int client) {
