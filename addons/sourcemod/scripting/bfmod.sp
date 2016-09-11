@@ -38,6 +38,7 @@ public void OnPluginStart() {
   initExpEvent();
   initHeadSprite();
   initHud();
+  initTag();
 }
 
 public void OnMapStart() {
