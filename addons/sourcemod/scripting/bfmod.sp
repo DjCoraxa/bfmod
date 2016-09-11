@@ -35,6 +35,7 @@ public void OnPluginStart() {
   initShop();
   initEvent();
   initHudSprite();
+  initExpEvent();
 }
 
 public void OnMapStart() {
