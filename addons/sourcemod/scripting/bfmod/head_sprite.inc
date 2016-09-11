@@ -1,10 +1,14 @@
 // This code was copy from https://forums.alliedmods.net/showpost.php?p=2231099&postcount=22
 // I only change name var's and fn's
 
-float HIDE_HEAD_SPRITE_TIME = 10.0
+ConVar cvarHeadSpriteHideTime;
 
 int headSprite[MAXPLAYERS + 1] = {-1, ...};
 Handle hideHeadSpriteTimer[MAXPLAYERS + 1] = {INVALID_HANDLE, ...}
+
+void initHeadSprite() {
+  cvarHeadSpriteHideTime = CreateConVar("bfmod_head_sprite_hide_timeout", "10.0", "Time (in sec) to autohide rank");
+}
 
 public Action createModel(Handle timer, any client){
     if (hideHeadSpriteTimer[client] != INVALID_HANDLE) {
@@ -16,7 +20,7 @@ public Action createModel(Handle timer, any client){
     headSprite[client] = createIcon(client);
     placeAndBindIcon(client, headSprite[client]);
 
-    hideHeadSpriteTimer[client] = CreateTimer(HIDE_HEAD_SPRITE_TIME, hideSpriteTimerCB, client);
+    hideHeadSpriteTimer[client] = CreateTimer(cvarHeadSpriteHideTime.FloatValue, hideSpriteTimerCB, client);
 }
 
 public Action hideSpriteTimerCB(Handle timer, any client) {
