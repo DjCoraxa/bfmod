@@ -1,6 +1,7 @@
-float HUD_INTERVAL = 1.0;
-float TIME_ELEMENTS_IN_HUD = 4.0;
 const int HUD_STACK_BLOCKSIZE = 90;
+
+ConVar cvarHudInterval;
+ConVar cvarTimeElementsInHud;
 
 ArrayStack clientHudStack[MAXPLAYERS + 1];
 char clientHudElements[MAXPLAYERS + 1][4][HUD_STACK_BLOCKSIZE + 1];
@@ -8,10 +9,14 @@ int clientHudElementsCount[MAXPLAYERS + 1];
 Handle clientHudElementsTimer[MAXPLAYERS + 1];
 Handle clientHudTimer[MAXPLAYERS + 1];
 
+void initHud() {
+  cvarHudInterval = CreateConVar("bfmod_hud_interval", "1.0", "");
+  cvarTimeElementsInHud = CreateConVar("bfmod_time_hud_elements", "5.0", "");
+}
 
 void createHud(int client) {
   clientHudStack[client] = new ArrayStack(HUD_STACK_BLOCKSIZE);
-  clientHudTimer[client] = CreateTimer(HUD_INTERVAL, timerShowHud, client, TIMER_REPEAT);
+  clientHudTimer[client] = CreateTimer(cvarHudInterval.FloatValue, timerShowHud, client, TIMER_REPEAT);
 }
 
 void removeHud(int client) {
@@ -48,7 +53,7 @@ void createHudElementsTimer(int client) {
     clientHudElementsTimer[client] = INVALID_HANDLE;
   }
 
-  clientHudElementsTimer[client] = CreateTimer(TIME_ELEMENTS_IN_HUD, removeHudElements, client);
+  clientHudElementsTimer[client] = CreateTimer(cvarTimeElementsInHud.FloatValue, removeHudElements, client);
 }
 
 public Action removeHudElements(Handle timer, any client) {
