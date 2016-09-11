@@ -39,6 +39,7 @@ public void OnPluginStart() {
   initHeadSprite();
   initHud();
   initTag();
+  AutoExecConfig(true, "bfmod");
 }
 
 public void OnMapStart() {
