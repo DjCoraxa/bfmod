@@ -1,4 +1,4 @@
-float SPRITE_HUD_TIME = 5.0;
+ConVar cvarSpriteHudTime;
 
 Handle clientHudSpriteTimer[MAXPLAYERS + 1];
 
@@ -6,6 +6,7 @@ Handle clientHudSpriteTimer[MAXPLAYERS + 1];
 ArrayStack clientHudSpriteStack[MAXPLAYERS + 1];
 
 void initHudSprite() {
+  cvarSpriteHudTime = CreateConVar("bfmod_hud_sprite_time", "5.0", "");
   for (int i = 0; i < MAXPLAYERS; ++i) {
     clientHudSpriteStack[i] = new ArrayStack(90);
   }
@@ -14,7 +15,7 @@ void initHudSprite() {
 
 void showHudSprite(int client, char[] sprite) {
   if (clientHudSpriteTimer[client] == INVALID_HANDLE) {
-    clientHudSpriteTimer[client] = CreateTimer(SPRITE_HUD_TIME, showNextHudSprite, client, TIMER_REPEAT);
+    clientHudSpriteTimer[client] = CreateTimer(cvarSpriteHudTime.FloatValue, showNextHudSprite, client, TIMER_REPEAT);
     ClientCommand(client, "r_screenoverlay \"%s\"", sprite);
   } else {
     clientHudSpriteStack[client].PushString(sprite);
