@@ -10,6 +10,14 @@ void HeadSprite_init() {
   cvarHeadSpriteHideTime = CreateConVar("bfmod_head_sprite_hide_timeout", "10.0", "Time (in sec) to autohide rank");
 }
 
+void HeadSprite_eventOnPlayerSpawn(int client) {
+  CreateTimer(0.1, HeadSprite_createModel, client);
+}
+
+void HeadSprite_eventOnPlayerDeath(int victim) {
+  HeadSprite_safeDelete(headSprite[victim]);
+}
+
 public Action HeadSprite_createModel(Handle timer, any client){
     if (hideHeadSpriteTimer[client] != INVALID_HANDLE) {
       KillTimer(hideHeadSpriteTimer[client]);

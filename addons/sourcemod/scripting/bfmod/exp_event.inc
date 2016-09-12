@@ -16,6 +16,40 @@ void ExpEvent_init() {
   cvarBombExpMinPlayer = CreateConVar("bfmod_bomb_exp_min_players", "4", "Min players for exp from bomb");
 }
 
+void ExpEvent_eventOnPlayerDeath(int victim, int attacker, int assister, char[] weapon, bool hs) {
+  if (IsValidClient(assister)) {
+    ExpEvent_giveExpForAssist(assister);
+  }
+
+  if (IsValidClient(attacker) && attacker != victim) {
+    ExpEvent_giveExpForKill(attacker, victim, weapon);
+
+    if (hs) {
+      ExpEvent_giveBonusExpForHS(attacker);
+    }
+  }
+}
+
+void ExpEvent_eventOnBombPlant(int client) {
+  if (IsValidClient(client)) {
+    ExpEvent_giveExpForBombPlant(client);
+  }
+}
+
+void ExpEvent_eventOnBombDefuse(int client) {
+  if (IsValidClient(client)) {
+    ExpEvent_giveExpForBombDefuse(client);
+  }
+}
+
+void ExpEvent_eventOnRoundEnd(int winnerTeam) {
+  for (int client = 1; client <= MaxClients; client++) {
+    if(IsValidClient(client) && GetClientTeam(client) == winnerTeam) {
+      giveExpForWinRound(client);
+    }
+  }
+}
+
 void ExpEvent_giveExpForKill(int attacker, int victim, char[] weapon) {
   int exp = Rank_giveExp(attacker, cvarKillExp.IntValue);
   CPrintToChat(attacker, "%s %t", MOD_NAME, "bfmod_exp_kill", exp);

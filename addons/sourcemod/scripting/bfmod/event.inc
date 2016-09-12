@@ -9,24 +9,14 @@ void Event_init() {
 
 public Action Event_onPlayerSpawn(Event event, const char[] name, bool dontBroadcast) {
   int client = GetClientOfUserId(event.GetInt("userid"));
-
-  if (!IsValidClient(client) || !IsPlayerAlive(client)) {
-    return;
-  }
-
-  CreateTimer(0.1, HeadSprite_createModel, client);
-  SpawnBonus_giveSpawnBonus(client);
-  Tag_setRankTag(client);
+  HeadSprite_eventOnPlayerSpawn(client);
+  SpawnBonus_eventOnPlayerSpawn(client);
+  Tag_eventOnPlayerSpawn(client);
 }
 
 public Action Event_onPlayerTeam(Event event, const char[] name, bool dontBroadcast) {
   int client = GetClientOfUserId(event.GetInt("userid"));
-
-  if (!IsValidClient(client)) {
-    return;
-  }
-
-  Tag_setRankTag(client);
+  Tag_eventOnPlayerTeam(client);
 }
 
 public Action Event_onPlayerDeath(Event event, const char[] name, bool dontBroadcast) {
@@ -35,52 +25,24 @@ public Action Event_onPlayerDeath(Event event, const char[] name, bool dontBroad
   int assister = GetClientOfUserId(event.GetInt("assister"));
   char weaponBuffer[64];
   event.GetString("weapon", weaponBuffer, sizeof(weaponBuffer));
-  int hs = event.GetInt("headshot");
+  bool hs = event.GetBool("headshot");
 
-  HeadSprite_safeDelete(headSprite[victim]);
-
-  if (!IsValidClient(attacker)) {
-    return;
-  }
-
-  ExpEvent_giveExpForKill(attacker, victim, weaponBuffer);
-
-  if (hs) {
-    ExpEvent_giveBonusExpForHS(attacker);
-  }
-
-  if (!IsValidClient(assister)) {
-    return;
-  }
-
-  ExpEvent_giveExpForAssist(assister);
+  HeadSprite_eventOnPlayerDeath(victim);
+  ExpEvent_eventOnPlayerDeath(victim, attacker, assister, weaponBuffer, hs);
 }
 
 public Action Event_onBombPlant(Event event, const char[] name, bool dontBroadcast) {
   int client = GetClientOfUserId(event.GetInt("userid"));
-
-  if (!IsValidClient(client)) {
-    return;
-  }
-
-  ExpEvent_giveExpForBombPlant(client);
+  ExpEvent_eventOnBombPlant(client);
 }
 
 public Action Event_onBombDefuse(Event event, const char[] name, bool dontBroadcast) {
   int client = GetClientOfUserId(event.GetInt("userid"));
-
-  if (!IsValidClient(client)) {
-    return;
-  }
-
-  ExpEvent_giveExpForBombDefuse(client);
+  ExpEvent_eventOnBombDefuse(client);
 }
 
 public Action Event_onRoundEnd(Event event, const char[] name, bool dontBroadcast) {
   int winnerTeam = event.GetInt("winner");
-  for (int client = 1; client <= MaxClients; client++) {
-    if(IsValidClient(client) && GetClientTeam(client) == winnerTeam) {
-      giveExpForWinRound(client);
-    }
-  }
+  ExpEvent_eventOnRoundEnd(winnerTeam);
+  Sql_eventOnRoundEnd();
 }

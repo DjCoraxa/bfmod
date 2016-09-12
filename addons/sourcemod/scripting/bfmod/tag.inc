@@ -8,6 +8,14 @@ void Tag_onClientPutInServer(int client) {
   Tag_setRankTag(client);
 }
 
+void Tag_eventOnPlayerSpawn(int client) {
+  Tag_setRankTag(client);
+}
+
+void Tag_eventOnPlayerTeam(int client) {
+  Tag_setRankTag(client);
+}
+
 void Tag_setRankTag(int client) {
   if (!cvarRankTagEnable.BoolValue) {
     return;

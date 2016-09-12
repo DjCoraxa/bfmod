@@ -21,14 +21,13 @@ void Sql_init() {
   }
 
   SQL_Query(db, queryCreate);
-  HookEvent("round_end", Sql_roundEnd);
 }
 
 void Sql_onClientPutInServer(int client) {
   Sql_loadClientData(client);
 }
 
-public Action Sql_roundEnd(Event event, const char[] name, bool dontBroadcast) {
+public Action Sql_eventOnRoundEnd() {
   for (int client = 1; client <= MaxClients; ++client) {
     if (IsValidClient(client)) {
       Sql_saveClientData(client);
