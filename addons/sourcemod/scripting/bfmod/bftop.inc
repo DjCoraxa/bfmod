@@ -14,7 +14,7 @@ public Action cmd_sm_bftop(int client, int args) {
 }
 
 void BFTop_prepareMenu() {
-  getTopClients(15, BFTop_prepareMenuCB);
+  Sql_getTopClients(15, BFTop_prepareMenuCB);
 }
 
 void BFTop_openMenu(int client) {

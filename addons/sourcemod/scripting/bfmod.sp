@@ -26,7 +26,7 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 
 public void OnPluginStart() {
   LoadTranslations("bfmod.phrases.txt");
-  sqlInit();
+  Sql_init();
   BonusMenu_init();
   PerkMenu_init();
   PerkDescMenu_init();
@@ -48,7 +48,7 @@ public void OnMapStart() {
 }
 
 public void OnClientPutInServer(int client) {
-  loadClientData(client);
+  Sql_loadClientData(client);
   Hud_create(client);
   setRankTag(client);
   Perk_hook(client);
