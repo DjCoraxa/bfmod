@@ -26,7 +26,12 @@ void HudSprite_show(int client, char[] sprite) {
 }
 
 public Action HudSprite_showNextTimer(Handle timer, any client) {
-  if (clientHudSpriteStack[client].Empty || !IsValidClient(client)) {
+  if (!IsValidClient(client)) {
+    clientHudSpriteTimer[client] = INVALID_HANDLE;
+    return Plugin_Stop;
+  }
+
+  if (clientHudSpriteStack[client].Empty) {
     ClientCommand(client, "r_screenoverlay \"\"");
     clientHudSpriteTimer[client] = INVALID_HANDLE;
     return Plugin_Stop;
