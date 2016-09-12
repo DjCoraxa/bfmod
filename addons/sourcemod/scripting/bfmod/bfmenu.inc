@@ -23,7 +23,7 @@ public int BFMenu_MenuHandler(Menu menu, MenuAction action, int param1, int para
       switch (param2) {
         case 0: openPerkMenu(param1);
         case 1: openPerkDescMenu(param1);
-        case 2: openBonusMenu(param1);
+        case 2: BonusMenu_openMenu(param1);
         case 3: BFTop_openMenu(param1);
         case 4: openShopMenu(param1);
       }

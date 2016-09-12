@@ -27,7 +27,7 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 public void OnPluginStart() {
   LoadTranslations("bfmod.phrases.txt");
   sqlInit();
-  initBonusMenu();
+  BonusMenu_init();
   initPerkMenu();
   initPerkDescMenu();
   BFMenu_init();
