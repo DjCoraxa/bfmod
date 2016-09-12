@@ -34,7 +34,7 @@ public void OnPluginStart() {
   BFTop_init();
   initShop();
   initEvent();
-  initHudSprite();
+  HudSprite_init();
   ExpEvent_init();
   HeadSprite_init();
   initHud();
@@ -62,7 +62,7 @@ public void OnClientDisconnect(int client) {
 }
 
 void onLvlUp(int client, int lvl) {
-  showHudSprite(client, rankSprite[lvl]);
+  HudSprite_show(client, rankSprite[lvl]);
   CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_promote_rank", rankName[lvl]);
 }
 

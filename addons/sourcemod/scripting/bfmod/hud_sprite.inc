@@ -5,7 +5,7 @@ Handle clientHudSpriteTimer[MAXPLAYERS + 1];
 //TODO: revrite code to "FIFO stack"
 ArrayStack clientHudSpriteStack[MAXPLAYERS + 1];
 
-void initHudSprite() {
+void HudSprite_init() {
   cvarSpriteHudTime = CreateConVar("bfmod_hud_sprite_time", "5.0", "");
   for (int i = 0; i < MAXPLAYERS; ++i) {
     clientHudSpriteStack[i] = new ArrayStack(90);
@@ -13,16 +13,16 @@ void initHudSprite() {
 }
 
 
-void showHudSprite(int client, char[] sprite) {
+void HudSprite_show(int client, char[] sprite) {
   if (clientHudSpriteTimer[client] == INVALID_HANDLE) {
-    clientHudSpriteTimer[client] = CreateTimer(cvarSpriteHudTime.FloatValue, showNextHudSprite, client, TIMER_REPEAT);
+    clientHudSpriteTimer[client] = CreateTimer(cvarSpriteHudTime.FloatValue, HudSprite_showNextTimer, client, TIMER_REPEAT);
     ClientCommand(client, "r_screenoverlay \"%s\"", sprite);
   } else {
     clientHudSpriteStack[client].PushString(sprite);
   }
 }
 
-public Action showNextHudSprite(Handle timer, any client) {
+public Action HudSprite_showNextTimer(Handle timer, any client) {
   if (clientHudSpriteStack[client].Empty || !IsValidClient(client)) {
     ClientCommand(client, "r_screenoverlay \"\"");
     clientHudSpriteTimer[client] = INVALID_HANDLE;
