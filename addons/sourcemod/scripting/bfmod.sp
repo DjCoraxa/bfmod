@@ -35,7 +35,7 @@ public void OnPluginStart() {
   initShop();
   initEvent();
   initHudSprite();
-  initExpEvent();
+  ExpEvent_init();
   initHeadSprite();
   initHud();
   initTag();

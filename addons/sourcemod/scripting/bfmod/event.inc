@@ -42,17 +42,17 @@ public Action eventPlayerDeath(Event event, const char[] name, bool dontBroadcas
     return;
   }
 
-  giveExpForKill(attacker, victim, weaponBuffer);
+  ExpEvent_giveExpForKill(attacker, victim, weaponBuffer);
 
   if (hs) {
-    giveBonusExpForHS(attacker);
+    ExpEvent_giveBonusExpForHS(attacker);
   }
 
   if (!IsValidClient(assister)) {
     return;
   }
 
-  giveExpForAssist(assister);
+  ExpEvent_giveExpForAssist(assister);
 }
 
 public Action eventBombPlanted(Event event, const char[] name, bool dontBroadcast) {
@@ -62,7 +62,7 @@ public Action eventBombPlanted(Event event, const char[] name, bool dontBroadcas
     return;
   }
 
-  giveExpForBombPlant(client);
+  ExpEvent_giveExpForBombPlant(client);
 }
 
 public Action eventBombDefused(Event event, const char[] name, bool dontBroadcast) {
@@ -72,5 +72,5 @@ public Action eventBombDefused(Event event, const char[] name, bool dontBroadcas
     return;
   }
 
-  giveExpForBombDefuse(client);
+  ExpEvent_giveExpForBombDefuse(client);
 }
