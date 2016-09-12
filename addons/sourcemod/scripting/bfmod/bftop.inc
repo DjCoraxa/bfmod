@@ -27,7 +27,7 @@ public void BFTop_prepareMenuCB(Database db, DBResultSet results, const char[] e
     return;
   }
 
-  topMenu = new Menu(BFTopm_menuHandler);
+  topMenu = new Menu(BFTop_menuHandler);
   topMenu.SetTitle("BFMod TOP15")
   char buffer[4096];
   char name [64];
@@ -38,4 +38,4 @@ public void BFTop_prepareMenuCB(Database db, DBResultSet results, const char[] e
   }
 }
 
-public int BFTopm_menuHandler(Menu menu, MenuAction action, int param1, int param2) {}
+public int BFTop_menuHandler(Menu menu, MenuAction action, int param1, int param2) {}
