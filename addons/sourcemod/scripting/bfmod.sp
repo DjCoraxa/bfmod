@@ -29,7 +29,7 @@ public void OnPluginStart() {
   sqlInit();
   BonusMenu_init();
   initPerkMenu();
-  initPerkDescMenu();
+  PerkDescMenu_init();
   BFMenu_init();
   BFTop_init();
   initShop();
