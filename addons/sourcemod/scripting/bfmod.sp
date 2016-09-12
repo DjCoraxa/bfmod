@@ -37,7 +37,7 @@ public void OnPluginStart() {
   HudSprite_init();
   ExpEvent_init();
   HeadSprite_init();
-  initHud();
+  Hud_init();
   initTag();
   AutoExecConfig(true, "bfmod");
 }
@@ -49,7 +49,7 @@ public void OnMapStart() {
 
 public void OnClientPutInServer(int client) {
   loadClientData(client);
-  createHud(client);
+  Hud_create(client);
   setRankTag(client);
   hookPerkClient(client);
 }
@@ -57,7 +57,7 @@ public void OnClientPutInServer(int client) {
 public void OnClientDisconnect(int client) {
   PrintToServer("client disc %d", client);
   //saveClientData(client);
-  removeHud(client);
+  Hud_remove(client);
   unhookPerkClient(client);
 }
 

@@ -19,21 +19,21 @@ void ExpEvent_init() {
 void ExpEvent_giveExpForKill(int attacker, int victim, char[] weapon) {
   int exp = giveExp(attacker, cvarKillExp.IntValue);
   CPrintToChat(attacker, "%s %t", MOD_NAME, "bfmod_exp_kill", exp);
-  printHudMSG(attacker, "[%s] <font color='#DB9773'>%N</font> +%d", weapon, victim, exp);
+  Hud_print(attacker, "[%s] <font color='#DB9773'>%N</font> +%d", weapon, victim, exp);
   checkLvl(attacker);
 }
 
 void ExpEvent_giveBonusExpForHS(int attacker) {
   int exp = giveExp(attacker, cvarHsBonusExp.IntValue);
   CPrintToChat(attacker, "%s %t", MOD_NAME, "bfmod_exp_bonus_hs", exp);
-  printHudMSG(attacker, "HS bonus +%d", exp);
+  Hud_print(attacker, "HS bonus +%d", exp);
   checkLvl(attacker);
 }
 
 void ExpEvent_giveExpForAssist(int assister) {
   int exp = giveExp(assister, cvarAssistExp.IntValue);
   CPrintToChat(assister, "%s %t", MOD_NAME, "bfmod_exp_assist", giveExp(assister, exp));
-  printHudMSG(assister, "Assist +%d", exp)
+  Hud_print(assister, "Assist +%d", exp)
   checkLvl(assister);
 }
 
@@ -44,7 +44,7 @@ void ExpEvent_giveExpForBombPlant(int client) {
 
   int exp = giveExp(client, cvarBombPlantExp.IntValue);
   CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_bomb_plant", exp);
-  printHudMSG(client, "Plant bomb +%d", exp);
+  Hud_print(client, "Plant bomb +%d", exp);
   checkLvl(client);
 }
 
@@ -55,13 +55,13 @@ void ExpEvent_giveExpForBombDefuse(int client) {
 
   int exp = giveExp(client, cvarBombDefuseExp.IntValue);
   CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_bomb_defuse", exp);
-  printHudMSG(client, "Defuse bomb +%d", exp);
+  Hud_print(client, "Defuse bomb +%d", exp);
   checkLvl(client);
 }
 
 void giveExpForWinRound(int client) {
   int exp = giveExp(client, cvarRoundWinExp.IntValue);
   CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_round_win", exp);
-  printHudMSG(client, "Won round +%d", exp);
+  Hud_print(client, "Won round +%d", exp);
   checkLvl(client);
 }
