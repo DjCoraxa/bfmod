@@ -6,29 +6,29 @@ ConVar cvarHeadSpriteHideTime;
 int headSprite[MAXPLAYERS + 1] = {-1, ...};
 Handle hideHeadSpriteTimer[MAXPLAYERS + 1] = {INVALID_HANDLE, ...}
 
-void initHeadSprite() {
+void HeadSprite_init() {
   cvarHeadSpriteHideTime = CreateConVar("bfmod_head_sprite_hide_timeout", "10.0", "Time (in sec) to autohide rank");
 }
 
-public Action createModel(Handle timer, any client){
+public Action HeadSprite_createModel(Handle timer, any client){
     if (hideHeadSpriteTimer[client] != INVALID_HANDLE) {
       KillTimer(hideHeadSpriteTimer[client]);
       hideHeadSpriteTimer[client] = INVALID_HANDLE;
     }
 
-    safeDelete(headSprite[client]);
-    headSprite[client] = createIcon(client);
-    placeAndBindIcon(client, headSprite[client]);
+    HeadSprite_safeDelete(headSprite[client]);
+    headSprite[client] = HeadSprite_createIcon(client);
+    HeadSprite_placeAndBindIcon(client, headSprite[client]);
 
-    hideHeadSpriteTimer[client] = CreateTimer(cvarHeadSpriteHideTime.FloatValue, hideSpriteTimerCB, client);
+    hideHeadSpriteTimer[client] = CreateTimer(cvarHeadSpriteHideTime.FloatValue, HeadSprite_hideTimerCB, client);
 }
 
-public Action hideSpriteTimerCB(Handle timer, any client) {
+public Action HeadSprite_hideTimerCB(Handle timer, any client) {
   hideHeadSpriteTimer[client] = INVALID_HANDLE;
-  safeDelete(headSprite[client]);
+  HeadSprite_safeDelete(headSprite[client]);
 }
 
-int createIcon(int client) {
+int HeadSprite_createIcon(int client) {
     char buffer[256];
     Format(buffer, sizeof(buffer), "materials/%s.vmt", rankSprite[clientLvl[client]]);
 
@@ -50,7 +50,7 @@ int createIcon(int client) {
     return -1;
 }
 
-void placeAndBindIcon(int client, int entity) {
+void HeadSprite_placeAndBindIcon(int client, int entity) {
     float origin[3];
 
     if (IsValidEntity(entity) && IsValidClient(client)) {
@@ -63,7 +63,7 @@ void placeAndBindIcon(int client, int entity) {
     }
 }
 
-void safeDelete(int entity) {
+void HeadSprite_safeDelete(int entity) {
     if (IsValidEntity(entity)) {
         AcceptEntityInput(entity, "Kill");
     }

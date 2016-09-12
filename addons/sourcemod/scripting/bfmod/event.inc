@@ -14,7 +14,7 @@ public Action eventPlayerSpawn(Event event, const char[] name, bool dontBroadcas
     return;
   }
 
-  CreateTimer(0.1, createModel, client);
+  CreateTimer(0.1, HeadSprite_createModel, client);
   giveSpawnBonus(client);
   setRankTag(client);
 }
@@ -37,7 +37,7 @@ public Action eventPlayerDeath(Event event, const char[] name, bool dontBroadcas
   event.GetString("weapon", weaponBuffer, sizeof(weaponBuffer));
   int hs = event.GetInt("headshot");
 
-  safeDelete(headSprite[victim]);
+  HeadSprite_safeDelete(headSprite[victim]);
 
   if (!IsValidClient(attacker)) {
     return;

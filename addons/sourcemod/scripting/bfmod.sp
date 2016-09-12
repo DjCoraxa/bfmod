@@ -36,7 +36,7 @@ public void OnPluginStart() {
   initEvent();
   initHudSprite();
   ExpEvent_init();
-  initHeadSprite();
+  HeadSprite_init();
   initHud();
   initTag();
   AutoExecConfig(true, "bfmod");
