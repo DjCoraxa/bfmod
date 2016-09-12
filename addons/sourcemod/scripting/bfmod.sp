@@ -6,6 +6,8 @@
 
 char MOD_NAME[] = "{darkred}[BFMod]";
 
+//#define TEST_ENABLE
+
 #include "bfmod/rank"
 #include "bfmod/shop"
 #include "bfmod/sql"
@@ -24,6 +26,10 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 #include "bfmod/hud"
 #include "bfmod/event"
 
+#if defined TEST_ENABLE
+  #include "bfmodtest/hud_sprite_stack"
+#endif
+
 public void OnPluginStart() {
   LoadTranslations("bfmod.phrases.txt");
   Sql_init();
@@ -40,6 +46,10 @@ public void OnPluginStart() {
   Hud_init();
   Tag_init();
   AutoExecConfig(true, "bfmod");
+
+  #if defined TEST_ENABLE
+    TestHudSpriteStack_init();
+  #endif
 }
 
 public void OnMapStart() {

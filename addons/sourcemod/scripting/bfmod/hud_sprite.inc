@@ -36,5 +36,9 @@ public Action HudSprite_showNextTimer(Handle timer, any client) {
   clientHudSpriteStack[client].PopString(sprite, sizeof(sprite));
   ClientCommand(client, "r_screenoverlay \"%s\"", sprite);
 
+  #if defined TEST_ENABLE
+    PrintToConsole(client, "[BFMod:TestMode:HudSprite] Show hud sprite \"%s\"", sprite);
+  #endif
+
   return Plugin_Continue;
 }
