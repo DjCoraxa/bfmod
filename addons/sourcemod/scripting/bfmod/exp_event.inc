@@ -39,7 +39,7 @@ char weaponAlias[][] =
 char weaponFullName[][] =
 {
   "Obrzyn",
-  "Mag-7",
+  "MAG-7",
   "Nova",
   "XM1014",
   "MP7",
@@ -65,7 +65,7 @@ char weaponFullName[][] =
   "CZ-75",
   "USP-S",
   "USP-S",
-  "Deagle",
+  "DEAGLE",
   "Revolver",
   "Glock",
   "P250",
