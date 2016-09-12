@@ -38,7 +38,7 @@ public void OnPluginStart() {
   ExpEvent_init();
   HeadSprite_init();
   Hud_init();
-  initTag();
+  Tag_init();
   AutoExecConfig(true, "bfmod");
 }
 
@@ -50,7 +50,7 @@ public void OnMapStart() {
 public void OnClientPutInServer(int client) {
   Sql_loadClientData(client);
   Hud_create(client);
-  setRankTag(client);
+  Tag_setRankTag(client);
   Perk_hook(client);
 }
 

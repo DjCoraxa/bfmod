@@ -16,7 +16,7 @@ public Action eventPlayerSpawn(Event event, const char[] name, bool dontBroadcas
 
   CreateTimer(0.1, HeadSprite_createModel, client);
   SpawnBonus_giveSpawnBonus(client);
-  setRankTag(client);
+  Tag_setRankTag(client);
 }
 
 public Action eventPlayerTeam(Event event, const char[] name, bool dontBroadcast) {
@@ -26,7 +26,7 @@ public Action eventPlayerTeam(Event event, const char[] name, bool dontBroadcast
     return;
   }
 
-  setRankTag(client);
+  Tag_setRankTag(client);
 }
 
 public Action eventPlayerDeath(Event event, const char[] name, bool dontBroadcast) {
