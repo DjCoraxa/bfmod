@@ -4,6 +4,7 @@ void initEvent() {
     HookEvent("player_death", eventPlayerDeath);
     HookEvent("bomb_planted", eventBombPlanted);
     HookEvent("bomb_defused", eventBombDefused);
+    HookEvent("round_end", eventRoundEnd);
 }
 
 public Action eventPlayerSpawn(Event event, const char[] name, bool dontBroadcast) {
@@ -73,4 +74,15 @@ public Action eventBombDefused(Event event, const char[] name, bool dontBroadcas
   }
 
   giveExpForBombDefuse(client);
+}
+public Action eventRoundEnd(Event event, const char[] name, bool dontBroadcast)
+{
+  int winnerTeam = event.GetInt("winner");
+  for(int client = 1; client <= MaxClients; client++)
+  {
+    if(IsValidClient(client) && GetClientTeam(client) == winnerTeam)
+    {
+      giveExpForWinRound(client);
+    }
+  }
 }

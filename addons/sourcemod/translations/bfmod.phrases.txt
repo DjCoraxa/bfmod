@@ -29,6 +29,12 @@
     "pl" "{purple}Otrzymałeś {green}{1} xp {purple}za {green}rozbrojenie paki"
   }
 
+  "bfmod_exp_round_win" {
+    "#format" "{1:d}"
+    "en" "{purple}You got {green}{1} xp {purple}for {green}win round"
+    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}za {green}wygranie rundy"
+  }
+
   "bfmod_promote_rank" {
     "#format" "{1:s}"
     "en" "{purple}You are promoting to rank {green}{1}"

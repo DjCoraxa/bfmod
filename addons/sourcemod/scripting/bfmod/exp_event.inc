@@ -4,6 +4,7 @@ ConVar cvarHsBonusExp;
 ConVar cvarBombPlantExp;
 ConVar cvarBombDefuseExp;
 ConVar cvarBombExpMinPlayer;
+ConVar cvarRoundWinExp;
 
 void initExpEvent() {
   cvarKillExp = CreateConVar("bfmod_kill_exp", "100", "Exp amount from kill");
@@ -11,6 +12,7 @@ void initExpEvent() {
   cvarHsBonusExp = CreateConVar("bfmod_hs_exp", "30", "Exp amount from hs");
   cvarBombPlantExp = CreateConVar("bfmod_bomb_plant_exp", "300", "Exp amount from bomb plant");
   cvarBombDefuseExp = CreateConVar("bfmod_bomb_defuse_exp", "300", "Exp amount from bomb defuse");
+  cvarRoundWinExp = CreateConVar("bfmod_round_win_exp", "100", "Exp amount from win round");
   cvarBombExpMinPlayer = CreateConVar("bfmod_bomb_exp_min_players", "4", "Min players for exp from bomb");
 }
 
@@ -54,5 +56,12 @@ void giveExpForBombDefuse(int client) {
   int exp = giveExp(client, cvarBombDefuseExp.IntValue);
   CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_bomb_defuse", exp);
   printHudMSG(client, "Defuse bomb +%d", exp);
+  checkLvl(client);
+}
+
+void giveExpForWinRound(int client) {
+  int exp = giveExp(client, cvarRoundWinExp.IntValue);
+  CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_round_win", exp);
+  printHudMSG(client, "HS bonus +%d", exp);
   checkLvl(client);
 }
