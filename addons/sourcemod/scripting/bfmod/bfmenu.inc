@@ -1,13 +1,13 @@
-void initBFMenu() {
+void BFMenu_init() {
   RegConsoleCmd("sm_bfmenu", cmd_sm_bfmenu);
 }
 
 public Action cmd_sm_bfmenu(int client, int args) {
-  openBFMenu(client);
+  BFMenu_openMenu(client);
 }
 
-void openBFMenu(int client) {
-  Menu menu = new Menu(BFMenuHandler);
+void BFMenu_openMenu(int client) {
+  Menu menu = new Menu(BFMenu_MenuHandler);
   menu.SetTitle("BFMod menu");
   menu.AddItem("perk", "Choose perk [!perk]");
   menu.AddItem("perkdesc", "Perk desc [!perks]");
@@ -17,7 +17,7 @@ void openBFMenu(int client) {
   menu.Display(client, 60);
 }
 
-public int BFMenuHandler(Menu menu, MenuAction action, int param1, int param2) {
+public int BFMenu_MenuHandler(Menu menu, MenuAction action, int param1, int param2) {
   if (action == MenuAction_Select) {
     if (IsValidClient(param1)) {
       switch (param2) {
