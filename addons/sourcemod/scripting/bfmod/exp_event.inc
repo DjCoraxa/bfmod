@@ -1,3 +1,79 @@
+char weaponAlias[][] =
+{
+  "sawedoff",
+  "mag7",
+  "nova",
+  "xm1014",
+  "mp7",
+  "mp9",
+  "ssg08",
+  "awp",
+  "famas",
+  "ump45",
+  "bizon",
+  "mac10",
+  "galilar",
+  "p90",
+  "ak47",
+  "m4a1_silencer",
+  "m4a1_silencer_off",
+  "m4a1",
+  "sg556",
+  "aug",
+  "m249",
+  "negev",
+  "scar20",
+  "g3sg1",
+  "cz75a",
+  "usp_silencer",
+  "usp_silencer_off",
+  "deagle",
+  "revolver",
+  "glock",
+  "p250",
+  "hkp2000",
+  "tec9",
+  "fiveseven",
+  "elite"
+};
+char weaponFullName[][] =
+{
+  "Obrzyn",
+  "Mag-7",
+  "Nova",
+  "XM1014",
+  "MP7",
+  "MP9",
+  "SSG 08",
+  "AWP",
+  "FAMAS",
+  "UMP-45",
+  "PP-Bizon",
+  "Mac-10",
+  "Galil AR",
+  "P90",
+  "AK-47",
+  "M4A1-S",
+  "M4A1-S",
+  "M4A4",
+  "SG 553",
+  "AUG",
+  "M249",
+  "Negev",
+  "Scar-20",
+  "G3SG1",
+  "CZ-75",
+  "USP-S",
+  "USP-S",
+  "Deagle",
+  "Revolver",
+  "Glock",
+  "P250",
+  "P2000",
+  "TEC-9",
+  "FiveSeven",
+  "Dwie Berrety"
+};
 ConVar cvarKillExp;
 ConVar cvarAssistExp;
 ConVar cvarHsBonusExp;
@@ -17,44 +93,12 @@ void ExpEvent_init() {
   cvarRoundWinExp = CreateConVar("bfmod_round_win_exp", "100", "Exp amount from win round");
   cvarBombExpMinPlayer = CreateConVar("bfmod_bomb_exp_min_players", "4", "Min players for exp from bomb");
 
-  fullWeaponName = CreateTrie();
+  fullWeaponName = new StringMap();
 
-  fullWeaponName.SetString("sawedoff", "Obrzyn (Sawed-Off)");
-  fullWeaponName.SetString("mag7", "Mag-7");
-  fullWeaponName.SetString("nova", "Nova");
-  fullWeaponName.SetString("xm1014", "XM1014");
-  fullWeaponName.SetString("mp7", "MP7");
-  fullWeaponName.SetString("mp9", "MP9");
-  fullWeaponName.SetString("ssg08", "SSG 08 (Scout)");
-  fullWeaponName.SetString("awp", "AWP");
-  fullWeaponName.SetString("famas", "FAMAS");
-  fullWeaponName.SetString("ump45", "UMP-45");
-  fullWeaponName.SetString("bizon", "PP-Bizon");
-  fullWeaponName.SetString("mac10", "Mac-10");
-  fullWeaponName.SetString("galilar", "Galil AR");
-  fullWeaponName.SetString("p90", "P90");
-  fullWeaponName.SetString("ak47", "AK-47");
-  fullWeaponName.SetString("m4a1_silencer", "M4A1-S");
-  fullWeaponName.SetString("m4a1_silencer_off", "M4A1-S");
-  fullWeaponName.SetString("m4a1", "M4A4");
-  fullWeaponName.SetString("sg556", "SG 553");
-  fullWeaponName.SetString("aug", "AUG");
-  fullWeaponName.SetString("m249", "M249");
-  fullWeaponName.SetString("negev", "Negev");
-  fullWeaponName.SetString("scar20", "Scar-20");
-  fullWeaponName.SetString("g3sg1", "G3SG1");
-
-  fullWeaponName.SetString("cz75a", "CZ-75");
-  fullWeaponName.SetString("usp_silencer","USP-S");
-  fullWeaponName.SetString("usp_silencer_off","USP-S");
-  fullWeaponName.SetString("deagle", "Deagle");
-  fullWeaponName.SetString("revolver", "Revolver");
-  fullWeaponName.SetString("glock", "Glock");
-  fullWeaponName.SetString("p250", "P250");
-  fullWeaponName.SetString("hkp2000", "P2000");
-  fullWeaponName.SetString("tec9", "TEC-9");
-  fullWeaponName.SetString("fiveseven", "FiveSeven");
-  fullWeaponName.SetString("elite", "Dwie Berrety");
+  for(int i = 0;i < sizeof(weaponAlias); i++)
+  {
+    fullWeaponName.SetString(weaponAlias[i], weaponFullName[i]);
+  }
 }
 
 void ExpEvent_eventOnPlayerDeath(int victim, int attacker, int assister, char[] weapon, bool hs) {
