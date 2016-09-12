@@ -15,7 +15,7 @@ public Action eventPlayerSpawn(Event event, const char[] name, bool dontBroadcas
   }
 
   CreateTimer(0.1, HeadSprite_createModel, client);
-  giveSpawnBonus(client);
+  SpawnBonus_giveSpawnBonus(client);
   setRankTag(client);
 }
 
