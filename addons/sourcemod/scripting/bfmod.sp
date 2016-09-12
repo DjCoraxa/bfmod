@@ -6,7 +6,7 @@
 
 char MOD_NAME[] = "{darkred}[BFMod]";
 
-//#define TEST_ENABLE
+#define TEST_ENABLE
 
 #include "bfmod/rank"
 #include "bfmod/shop"
