@@ -24,6 +24,10 @@ void Sql_init() {
   HookEvent("round_end", Sql_roundEnd);
 }
 
+void Sql_onClientPutInServer(int client) {
+  Sql_loadClientData(client);
+}
+
 public Action Sql_roundEnd(Event event, const char[] name, bool dontBroadcast) {
   for (int client = 1; client <= MaxClients; ++client) {
     if (IsValidClient(client)) {

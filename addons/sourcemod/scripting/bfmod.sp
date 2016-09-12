@@ -43,26 +43,24 @@ public void OnPluginStart() {
 }
 
 public void OnMapStart() {
-  Rank_precacheSprites();
+  Rank_onMapStart();
   BFTop_onMapStart();
 }
 
 public void OnClientPutInServer(int client) {
-  Sql_loadClientData(client);
-  Hud_create(client);
-  Tag_setRankTag(client);
-  Perk_hook(client);
+  Sql_onClientPutInServer(client);
+  Hud_onClientPutInServer(client);
+  Tag_onClientPutInServer(client);
+  Perk_onClientPutInServer(client);
 }
 
 public void OnClientDisconnect(int client) {
-  PrintToServer("client disc %d", client);
-  //saveClientData(client);
-  Hud_remove(client);
-  Perk_unhook(client);
+  Hud_onClientDisconnect(client);
+  Perk_onClientDisconnect(client);
 }
 
 void onLvlUp(int client, int lvl) {
-  HudSprite_show(client, rankSprite[lvl]);
+  HudSprite_onLvlUp(client, lvl);
   CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_promote_rank", rankName[lvl]);
 }
 

@@ -52,6 +52,14 @@ int perkLvlMin[] = {
 Perk clientPerk[MAXPLAYERS + 1];
 Perk clientNextPerk[MAXPLAYERS + 1];
 
+void Perk_onClientPutInServer(int client) {
+  Perk_hook(client);
+}
+
+void Perk_onClientDisconnect(int client) {
+  Perk_unhook(client);
+}
+
 void Perk_hook(int client) {
   SDKHook(client, SDKHook_OnTakeDamage, Perk_onTakeDamage);
   SDKHook(client, SDKHook_SpawnPost, Perk_onSpawn);

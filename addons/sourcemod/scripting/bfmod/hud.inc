@@ -14,6 +14,14 @@ void Hud_init() {
   cvarTimeElementsInHud = CreateConVar("bfmod_time_hud_elements", "5.0", "");
 }
 
+void Hud_onClientPutInServer(int client) {
+  Hud_create(client);
+}
+
+void Hud_onClientDisconnect(int client) {
+  Hud_remove(client);
+}
+
 void Hud_create(int client) {
   clientHudStack[client] = new ArrayStack(HUD_STACK_BLOCKSIZE);
   clientHudTimer[client] = CreateTimer(cvarHudInterval.FloatValue, Hud_showTimer, client, TIMER_REPEAT);

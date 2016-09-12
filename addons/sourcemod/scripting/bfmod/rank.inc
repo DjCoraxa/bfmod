@@ -150,6 +150,10 @@ char rankSprite[][] = {
 int clientLvl[MAXPLAYERS + 1];
 int clientExp[MAXPLAYERS + 1];
 
+void Rank_onMapStart() {
+  Rank_precacheSprites();
+}
+
 void Rank_precacheSprites() {
   for (int i = 1; i < sizeof(rankSprite); ++i) {
     char buffer[256];

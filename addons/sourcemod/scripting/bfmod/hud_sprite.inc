@@ -12,6 +12,9 @@ void HudSprite_init() {
   }
 }
 
+void HudSprite_onLvlUp(int client, int lvl) {
+  HudSprite_show(client, rankSprite[lvl]);
+}
 
 void HudSprite_show(int client, char[] sprite) {
   if (clientHudSpriteTimer[client] == INVALID_HANDLE) {

@@ -4,6 +4,10 @@ void Tag_init() {
   cvarRankTagEnable = CreateConVar("bfmod_rank_tag_enable", "1", "");
 }
 
+void Tag_onClientPutInServer(int client) {
+  Tag_setRankTag(client);
+}
+
 void Tag_setRankTag(int client) {
   if (!cvarRankTagEnable.BoolValue) {
     return;
