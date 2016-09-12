@@ -23,7 +23,7 @@ void PerkMenu_openMenu(int client) {
 public int PerkMenu_menuHandler(Menu menu, MenuAction action, int param1, int param2) {
   if (action == MenuAction_Select) {
     if (IsValidClient(param1)) {
-      changePerk(param1, view_as<Perk>(param2 + 1));
+      Perk_change(param1, view_as<Perk>(param2 + 1));
     }
   } else if (action == MenuAction_End) {
 		delete menu;

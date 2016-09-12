@@ -52,18 +52,19 @@ int perkLvlMin[] = {
 Perk clientPerk[MAXPLAYERS + 1];
 Perk clientNextPerk[MAXPLAYERS + 1];
 
-void hookPerkClient(int client) {
-  SDKHook(client, SDKHook_OnTakeDamage, perkOnTakeDamage);
-  SDKHook(client, SDKHook_SpawnPost, perkOnSpawn)
+void Perk_hook(int client) {
+  SDKHook(client, SDKHook_OnTakeDamage, Perk_onTakeDamage);
+  SDKHook(client, SDKHook_SpawnPost, Perk_onSpawn);
   clientPerk[client] = PERK_NONE;
   clientNextPerk[client] = PERK_NONE;
 }
 
-void unhookPerkClient(int client) {
-  SDKUnhook(client, SDKHook_OnTakeDamage, perkOnTakeDamage);
+void Perk_unhook(int client) {
+  SDKUnhook(client, SDKHook_OnTakeDamage, Perk_onTakeDamage);
+  SDKUnhook(client, SDKHook_SpawnPost, Perk_onSpawn);
 }
 
-public Action perkOnTakeDamage(int victim, int& attacker, int& inflictor, float& damage, int& damagetype) {
+public Action Perk_onTakeDamage(int victim, int& attacker, int& inflictor, float& damage, int& damagetype) {
   if(!IsValidClient(attacker))
   	return Plugin_Continue;
 
@@ -101,7 +102,7 @@ public Action perkOnTakeDamage(int victim, int& attacker, int& inflictor, float&
   return Plugin_Continue;
 }
 
-public void perkOnSpawn(int client) {
+public void Perk_onSpawn(int client) {
   if (!IsValidClient(client))
     return;
 
@@ -122,7 +123,7 @@ public void perkOnSpawn(int client) {
   }
 }
 
-void changePerk(int client, Perk perk) {
+void Perk_change(int client, Perk perk) {
   if (clientPerk[client]) {
     clientNextPerk[client] = perk;
   } else {

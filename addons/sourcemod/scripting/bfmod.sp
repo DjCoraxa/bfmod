@@ -51,14 +51,14 @@ public void OnClientPutInServer(int client) {
   loadClientData(client);
   Hud_create(client);
   setRankTag(client);
-  hookPerkClient(client);
+  Perk_hook(client);
 }
 
 public void OnClientDisconnect(int client) {
   PrintToServer("client disc %d", client);
   //saveClientData(client);
   Hud_remove(client);
-  unhookPerkClient(client);
+  Perk_unhook(client);
 }
 
 void onLvlUp(int client, int lvl) {
