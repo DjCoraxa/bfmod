@@ -62,6 +62,6 @@ void giveExpForBombDefuse(int client) {
 void giveExpForWinRound(int client) {
   int exp = giveExp(client, cvarRoundWinExp.IntValue);
   CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_round_win", exp);
-  printHudMSG(client, "HS bonus +%d", exp);
+  printHudMSG(client, "Won round +%d", exp);
   checkLvl(client);
 }
