@@ -2,7 +2,7 @@
   "bfmod_exp_kill" {
     "#format" "{1:d}"
     "en" "{purple}You got {green}{1} xp {purple}for {green}killing player"
-    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}za {green}zabijcie gracza"
+    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}za {green}zabicie gracza"
   }
 
   "bfmod_exp_bonus_hs" {

@@ -53,7 +53,7 @@ int createIcon(int client) {
 void placeAndBindIcon(int client, int entity) {
     float origin[3];
 
-    if (IsValidEntity(entity)) {
+    if (IsValidEntity(entity) && IsValidClient(client) {
         GetClientAbsOrigin(client, origin);
         origin[2] = origin[2] + 30.0;
         TeleportEntity(entity, origin, NULL_VECTOR, NULL_VECTOR);
