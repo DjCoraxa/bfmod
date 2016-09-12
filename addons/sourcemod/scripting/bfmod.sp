@@ -43,7 +43,7 @@ public void OnPluginStart() {
 }
 
 public void OnMapStart() {
-  precacheRankHudSprite();
+  Rank_precacheSprites();
   BFTop_onMapStart();
 }
 

@@ -47,24 +47,24 @@ public int shopMenuHandler(Menu menu, MenuAction action, int param1, int param2)
         }
         case 1: {
           if (buy(param1, 100)) {
-            CPrintToChat(param1, "%s {purple}Otrzymałeś {green}%d xp", MOD_NAME, giveExp(param1, GetRandomInt(1, 100)));
-            checkLvl(param1);
+            CPrintToChat(param1, "%s {purple}Otrzymałeś {green}%d xp", MOD_NAME, Rank_giveExp(param1, GetRandomInt(1, 100)));
+            Rank_checkLvl(param1);
           } else {
             CPrintToChat(param1, "%s {green}Nie posiadasz wystarczających środków", MOD_NAME);
           }
         }
         case 2: {
           if (buy(param1, 200)) {
-            CPrintToChat(param1, "%s {purple}Otrzymałeś {green}%d xp", MOD_NAME, giveExp(param1, GetRandomInt(1, 500)));
-            checkLvl(param1);
+            CPrintToChat(param1, "%s {purple}Otrzymałeś {green}%d xp", MOD_NAME, Rank_giveExp(param1, GetRandomInt(1, 500)));
+            Rank_checkLvl(param1);
           } else {
             CPrintToChat(param1, "%s {green}Nie posiadasz wystarczających środków", MOD_NAME);
           }
         }
         case 3: {
           if (buy(param1, 300)) {
-            CPrintToChat(param1, "%s {purple}Otrzymałeś {green}%d xp", MOD_NAME, giveExp(param1, GetRandomInt(1, 3000)));
-            checkLvl(param1);
+            CPrintToChat(param1, "%s {purple}Otrzymałeś {green}%d xp", MOD_NAME, Rank_giveExp(param1, GetRandomInt(1, 3000)));
+            Rank_checkLvl(param1);
           } else {
             CPrintToChat(param1, "%s {green}Nie posiadasz wystarczających środków", MOD_NAME);
           }
