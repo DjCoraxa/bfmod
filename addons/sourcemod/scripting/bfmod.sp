@@ -31,7 +31,7 @@ public void OnPluginStart() {
   initPerkMenu();
   initPerkDescMenu();
   BFMenu_init();
-  initBFTop();
+  BFTop_init();
   initShop();
   initEvent();
   initHudSprite();
@@ -44,7 +44,7 @@ public void OnPluginStart() {
 
 public void OnMapStart() {
   precacheRankHudSprite();
-  prepareTopMenu();
+  BFTop_onMapStart();
 }
 
 public void OnClientPutInServer(int client) {
