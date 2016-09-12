@@ -17,11 +17,11 @@ void HudSprite_onLvlUp(int client, int lvl) {
 }
 
 void HudSprite_show(int client, char[] sprite) {
+  clientHudSpriteStack[client].PushString(sprite);
+  
   if (clientHudSpriteTimer[client] == INVALID_HANDLE) {
     clientHudSpriteTimer[client] = CreateTimer(cvarSpriteHudTime.FloatValue, HudSprite_showNextTimer, client, TIMER_REPEAT);
-    ClientCommand(client, "r_screenoverlay \"%s\"", sprite);
-  } else {
-    clientHudSpriteStack[client].PushString(sprite);
+    TriggerTimer(clientHudSpriteTimer[client])
   }
 }
 
