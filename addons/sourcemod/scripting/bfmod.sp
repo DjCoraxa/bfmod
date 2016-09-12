@@ -6,6 +6,8 @@
 
 char MOD_NAME[] = "{darkred}[BFMod]";
 
+#define TEST_ENABLE
+
 #include "bfmod/rank"
 #include "bfmod/shop"
 #include "bfmod/sql"
@@ -24,45 +26,51 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 #include "bfmod/hud"
 #include "bfmod/event"
 
+#if defined TEST_ENABLE
+  #include "bfmodtest/hud_sprite_stack"
+#endif
+
 public void OnPluginStart() {
   LoadTranslations("bfmod.phrases.txt");
-  sqlInit();
-  initBonusMenu();
-  initPerkMenu();
-  initPerkDescMenu();
+  Sql_init();
+  BonusMenu_init();
+  PerkMenu_init();
+  PerkDescMenu_init();
   BFMenu_init();
-  initBFTop();
-  initShop();
-  initEvent();
-  initHudSprite();
-  initExpEvent();
-  initHeadSprite();
-  initHud();
-  initTag();
+  BFTop_init();
+  Shop_init();
+  Event_init();
+  HudSprite_init();
+  ExpEvent_init();
+  HeadSprite_init();
+  Hud_init();
+  Tag_init();
   AutoExecConfig(true, "bfmod");
+
+  #if defined TEST_ENABLE
+    TestHudSpriteStack_init();
+  #endif
 }
 
 public void OnMapStart() {
-  precacheRankHudSprite();
-  prepareTopMenu();
+  Rank_onMapStart();
+  BFTop_onMapStart();
 }
 
 public void OnClientPutInServer(int client) {
-  loadClientData(client);
-  createHud(client);
-  setRankTag(client);
-  hookPerkClient(client);
+  Sql_onClientPutInServer(client);
+  Hud_onClientPutInServer(client);
+  Tag_onClientPutInServer(client);
+  Perk_onClientPutInServer(client);
 }
 
 public void OnClientDisconnect(int client) {
-  PrintToServer("client disc %d", client);
-  //saveClientData(client);
-  removeHud(client);
-  unhookPerkClient(client);
+  Hud_onClientDisconnect(client);
+  Perk_onClientDisconnect(client);
 }
 
 void onLvlUp(int client, int lvl) {
-  showHudSprite(client, rankSprite[lvl]);
+  HudSprite_onLvlUp(client, lvl);
   CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_promote_rank", rankName[lvl]);
 }
 

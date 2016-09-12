@@ -150,7 +150,11 @@ char rankSprite[][] = {
 int clientLvl[MAXPLAYERS + 1];
 int clientExp[MAXPLAYERS + 1];
 
-void precacheRankHudSprite() {
+void Rank_onMapStart() {
+  Rank_precacheSprites();
+}
+
+void Rank_precacheSprites() {
   for (int i = 1; i < sizeof(rankSprite); ++i) {
     char buffer[256];
     Format(buffer, sizeof(buffer), "%s.vtf", rankSprite[i]);
@@ -164,7 +168,7 @@ void precacheRankHudSprite() {
   }
 }
 
-void checkLvl(int client) {
+void Rank_checkLvl(int client) {
   while (clientExp[client] >= expTable[clientLvl[client]]) {
     clientExp[client] -= expTable[clientLvl[client]];
     ++clientLvl[client];
@@ -172,7 +176,7 @@ void checkLvl(int client) {
   }
 }
 
-int giveExp(int client, int exp) {
+int Rank_giveExp(int client, int exp) {
   int value = exp
   if (GetUserFlagBits(client) & ADMFLAG_RESERVATION) {
     value += VIP_BONUS_EXP;

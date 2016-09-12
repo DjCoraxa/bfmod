@@ -1,6 +1,10 @@
 int HEALTH_PER_RANK = 1;
 
-void giveSpawnBonus(int client) {
+void SpawnBonus_eventOnPlayerSpawn(int client) {
+  SpawnBonus_giveSpawnBonus(client);
+}
+
+void SpawnBonus_giveSpawnBonus(int client) {
   SetEntityHealth(client, GetClientHealth(client) + HEALTH_PER_RANK * clientLvl[client]);
 
   switch (clientLvl[client]) {

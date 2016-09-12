@@ -13,7 +13,7 @@ char queryCreate[] = "\
 static Database db;
 static char db_error[256];
 
-void sqlInit() {
+void Sql_init() {
   db = SQLite_UseDatabase(DATABASE_NAME, db_error, sizeof(db_error));
 
   if (db == INVALID_HANDLE) {
@@ -21,18 +21,21 @@ void sqlInit() {
   }
 
   SQL_Query(db, queryCreate);
-  HookEvent("round_end", sqlRoundEnd);
 }
 
-public Action sqlRoundEnd(Event event, const char[] name, bool dontBroadcast) {
+void Sql_onClientPutInServer(int client) {
+  Sql_loadClientData(client);
+}
+
+public Action Sql_eventOnRoundEnd() {
   for (int client = 1; client <= MaxClients; ++client) {
     if (IsValidClient(client)) {
-      saveClientData(client);
+      Sql_saveClientData(client);
     }
   }
 }
 
-void loadClientData(int client) {
+void Sql_loadClientData(int client) {
   char steamid[256];
   GetClientAuthId(client, AuthId_Steam3, steamid, sizeof(steamid));
 
@@ -61,7 +64,7 @@ void loadClientData(int client) {
   }
 }
 
-void saveClientData(int client) {
+void Sql_saveClientData(int client) {
   char steamid[256];
   GetClientAuthId(client, AuthId_Steam3, steamid, sizeof(steamid));
 
@@ -78,7 +81,7 @@ void saveClientData(int client) {
   PrintToServer("[BFMod][Save] client: %N lvl: %d exp: %d", client, clientLvl[client], clientExp[client]);
 }
 
-void getTopClients(int count, SQLQueryCallback callback) {
+void Sql_getTopClients(int count, SQLQueryCallback callback) {
   char queryTop[256];
   Format(queryTop, sizeof(queryTop), "SELECT name, lvl, exp, cash FROM bfmod ORDER BY lvl DESC, exp DESC LIMIT %d;", count);
   db.Query(callback, queryTop);

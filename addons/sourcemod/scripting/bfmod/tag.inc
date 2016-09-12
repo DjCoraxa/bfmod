@@ -1,10 +1,22 @@
 ConVar cvarRankTagEnable;
 
-void initTag() {
+void Tag_init() {
   cvarRankTagEnable = CreateConVar("bfmod_rank_tag_enable", "1", "");
 }
 
-void setRankTag(int client) {
+void Tag_onClientPutInServer(int client) {
+  Tag_setRankTag(client);
+}
+
+void Tag_eventOnPlayerSpawn(int client) {
+  Tag_setRankTag(client);
+}
+
+void Tag_eventOnPlayerTeam(int client) {
+  Tag_setRankTag(client);
+}
+
+void Tag_setRankTag(int client) {
   if (!cvarRankTagEnable.BoolValue) {
     return;
   }

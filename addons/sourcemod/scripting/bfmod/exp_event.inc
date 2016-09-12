@@ -6,7 +6,7 @@ ConVar cvarBombDefuseExp;
 ConVar cvarBombExpMinPlayer;
 ConVar cvarRoundWinExp;
 
-void initExpEvent() {
+void ExpEvent_init() {
   cvarKillExp = CreateConVar("bfmod_kill_exp", "100", "Exp amount from kill");
   cvarAssistExp = CreateConVar("bfmod_assist_exp", "25", "Exp amount from assist");
   cvarHsBonusExp = CreateConVar("bfmod_hs_exp", "30", "Exp amount from hs");
@@ -16,52 +16,86 @@ void initExpEvent() {
   cvarBombExpMinPlayer = CreateConVar("bfmod_bomb_exp_min_players", "4", "Min players for exp from bomb");
 }
 
-void giveExpForKill(int attacker, int victim, char[] weapon) {
-  int exp = giveExp(attacker, cvarKillExp.IntValue);
+void ExpEvent_eventOnPlayerDeath(int victim, int attacker, int assister, char[] weapon, bool hs) {
+  if (IsValidClient(assister)) {
+    ExpEvent_giveExpForAssist(assister);
+  }
+
+  if (IsValidClient(attacker) && attacker != victim) {
+    ExpEvent_giveExpForKill(attacker, victim, weapon);
+
+    if (hs) {
+      ExpEvent_giveBonusExpForHS(attacker);
+    }
+  }
+}
+
+void ExpEvent_eventOnBombPlant(int client) {
+  if (IsValidClient(client)) {
+    ExpEvent_giveExpForBombPlant(client);
+  }
+}
+
+void ExpEvent_eventOnBombDefuse(int client) {
+  if (IsValidClient(client)) {
+    ExpEvent_giveExpForBombDefuse(client);
+  }
+}
+
+void ExpEvent_eventOnRoundEnd(int winnerTeam) {
+  for (int client = 1; client <= MaxClients; client++) {
+    if(IsValidClient(client) && GetClientTeam(client) == winnerTeam) {
+      giveExpForWinRound(client);
+    }
+  }
+}
+
+void ExpEvent_giveExpForKill(int attacker, int victim, char[] weapon) {
+  int exp = Rank_giveExp(attacker, cvarKillExp.IntValue);
   CPrintToChat(attacker, "%s %t", MOD_NAME, "bfmod_exp_kill", exp);
-  printHudMSG(attacker, "[%s] <font color='#DB9773'>%N</font> +%d", weapon, victim, exp);
-  checkLvl(attacker);
+  Hud_print(attacker, "[%s] <font color='#DB9773'>%N</font> +%d", weapon, victim, exp);
+  Rank_checkLvl(attacker);
 }
 
-void giveBonusExpForHS(int attacker) {
-  int exp = giveExp(attacker, cvarHsBonusExp.IntValue);
+void ExpEvent_giveBonusExpForHS(int attacker) {
+  int exp = Rank_giveExp(attacker, cvarHsBonusExp.IntValue);
   CPrintToChat(attacker, "%s %t", MOD_NAME, "bfmod_exp_bonus_hs", exp);
-  printHudMSG(attacker, "HS bonus +%d", exp);
-  checkLvl(attacker);
+  Hud_print(attacker, "HS bonus +%d", exp);
+  Rank_checkLvl(attacker);
 }
 
-void giveExpForAssist(int assister) {
-  int exp = giveExp(assister, cvarAssistExp.IntValue);
-  CPrintToChat(assister, "%s %t", MOD_NAME, "bfmod_exp_assist", giveExp(assister, exp));
-  printHudMSG(assister, "Assist +%d", exp)
-  checkLvl(assister);
+void ExpEvent_giveExpForAssist(int assister) {
+  int exp = Rank_giveExp(assister, cvarAssistExp.IntValue);
+  CPrintToChat(assister, "%s %t", MOD_NAME, "bfmod_exp_assist", exp);
+  Hud_print(assister, "Assist +%d", exp)
+  Rank_checkLvl(assister);
 }
 
-void giveExpForBombPlant(int client) {
+void ExpEvent_giveExpForBombPlant(int client) {
   if (GetClientCount(true) < cvarBombExpMinPlayer.IntValue) {
     return;
   }
 
-  int exp = giveExp(client, cvarBombPlantExp.IntValue);
+  int exp = Rank_giveExp(client, cvarBombPlantExp.IntValue);
   CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_bomb_plant", exp);
-  printHudMSG(client, "Plant bomb +%d", exp);
-  checkLvl(client);
+  Hud_print(client, "Plant bomb +%d", exp);
+  Rank_checkLvl(client);
 }
 
-void giveExpForBombDefuse(int client) {
+void ExpEvent_giveExpForBombDefuse(int client) {
   if (GetClientCount(true) < cvarBombExpMinPlayer.IntValue) {
     return;
   }
 
-  int exp = giveExp(client, cvarBombDefuseExp.IntValue);
+  int exp = Rank_giveExp(client, cvarBombDefuseExp.IntValue);
   CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_bomb_defuse", exp);
-  printHudMSG(client, "Defuse bomb +%d", exp);
-  checkLvl(client);
+  Hud_print(client, "Defuse bomb +%d", exp);
+  Rank_checkLvl(client);
 }
 
 void giveExpForWinRound(int client) {
-  int exp = giveExp(client, cvarRoundWinExp.IntValue);
+  int exp = Rank_giveExp(client, cvarRoundWinExp.IntValue);
   CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_round_win", exp);
-  printHudMSG(client, "Won round +%d", exp);
-  checkLvl(client);
+  Hud_print(client, "Won round +%d", exp);
+  Rank_checkLvl(client);
 }

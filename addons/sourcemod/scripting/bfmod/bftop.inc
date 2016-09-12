@@ -1,29 +1,33 @@
 Menu topMenu;
 
-void initBFTop() {
-  prepareTopMenu();
+void BFTop_init() {
+  BFTop_prepareMenu();
   RegConsoleCmd("sm_bftop", cmd_sm_bftop);
 }
 
+void BFTop_onMapStart() {
+  BFTop_prepareMenu();
+}
+
 public Action cmd_sm_bftop(int client, int args) {
-  openTopMenu(client);
+  BFTop_openMenu(client);
 }
 
-void prepareTopMenu() {
-  getTopClients(15, prepareTopMenuCB);
+void BFTop_prepareMenu() {
+  Sql_getTopClients(15, BFTop_prepareMenuCB);
 }
 
-void openTopMenu(int client) {
+void BFTop_openMenu(int client) {
   topMenu.Display(client, 60);
 }
 
-public void prepareTopMenuCB(Database db, DBResultSet results, const char[] error, any data) {
+public void BFTop_prepareMenuCB(Database db, DBResultSet results, const char[] error, any data) {
   if (results == null) {
     LogError("[BFMod][TopRank] Query failed! %s", error);
     return;
   }
 
-  topMenu = new Menu(topMenuHandler);
+  topMenu = new Menu(BFTopm_menuHandler);
   topMenu.SetTitle("BFMod TOP15")
   char buffer[4096];
   char name [64];
@@ -34,4 +38,4 @@ public void prepareTopMenuCB(Database db, DBResultSet results, const char[] erro
   }
 }
 
-public int topMenuHandler(Menu menu, MenuAction action, int param1, int param2) {}
+public int BFTopm_menuHandler(Menu menu, MenuAction action, int param1, int param2) {}

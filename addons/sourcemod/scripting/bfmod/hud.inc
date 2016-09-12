@@ -9,17 +9,25 @@ int clientHudElementsCount[MAXPLAYERS + 1];
 Handle clientHudElementsTimer[MAXPLAYERS + 1];
 Handle clientHudTimer[MAXPLAYERS + 1];
 
-void initHud() {
+void Hud_init() {
   cvarHudInterval = CreateConVar("bfmod_hud_interval", "1.0", "");
   cvarTimeElementsInHud = CreateConVar("bfmod_time_hud_elements", "5.0", "");
 }
 
-void createHud(int client) {
-  clientHudStack[client] = new ArrayStack(HUD_STACK_BLOCKSIZE);
-  clientHudTimer[client] = CreateTimer(cvarHudInterval.FloatValue, timerShowHud, client, TIMER_REPEAT);
+void Hud_onClientPutInServer(int client) {
+  Hud_create(client);
 }
 
-void removeHud(int client) {
+void Hud_onClientDisconnect(int client) {
+  Hud_remove(client);
+}
+
+void Hud_create(int client) {
+  clientHudStack[client] = new ArrayStack(HUD_STACK_BLOCKSIZE);
+  clientHudTimer[client] = CreateTimer(cvarHudInterval.FloatValue, Hud_showTimer, client, TIMER_REPEAT);
+}
+
+void Hud_remove(int client) {
   CloseHandle(clientHudStack[client]);
   KillTimer(clientHudTimer[client]);
 
@@ -28,10 +36,10 @@ void removeHud(int client) {
     clientHudElementsTimer[client] = INVALID_HANDLE;
   }
 
-  removeHudElements(INVALID_HANDLE, client);
+  Hud_removeElements(INVALID_HANDLE, client);
 }
 
-void incAllHudElement(int client) {
+void Hud_incAllElements(int client) {
   strcopy(clientHudElements[client][3], sizeof(clientHudElements[][]), clientHudElements[client][2]);
   strcopy(clientHudElements[client][2], sizeof(clientHudElements[][]), clientHudElements[client][1]);
   strcopy(clientHudElements[client][1], sizeof(clientHudElements[][]), clientHudElements[client][0]);
@@ -41,22 +49,22 @@ void incAllHudElement(int client) {
   }
 }
 
-void addHudElement(int client, char[] content) {
-  incAllHudElement(client);
+void Hud_addElement(int client, char[] content) {
+  Hud_incAllElements(client);
   strcopy(clientHudElements[client][0], sizeof(clientHudElements[][]), content);
   ++clientHudElementsCount[client];
 }
 
-void createHudElementsTimer(int client) {
+void Hud_createElementsTimer(int client) {
   if (IsValidHandle(clientHudElementsTimer[client])) {
     KillTimer(clientHudElementsTimer[client]);
     clientHudElementsTimer[client] = INVALID_HANDLE;
   }
 
-  clientHudElementsTimer[client] = CreateTimer(cvarTimeElementsInHud.FloatValue, removeHudElements, client);
+  clientHudElementsTimer[client] = CreateTimer(cvarTimeElementsInHud.FloatValue, Hud_removeElements, client);
 }
 
-public Action removeHudElements(Handle timer, any client) {
+public Action Hud_removeElements(Handle timer, any client) {
   clientHudSpriteTimer[client] = INVALID_HANDLE;
   clientHudElementsCount[client] = 0;
   for (int i = 0; i < sizeof(clientHudElements[]); ++i) {
@@ -64,7 +72,7 @@ public Action removeHudElements(Handle timer, any client) {
   }
 }
 
-void printHudMSG(int client, const char[] msg, any ...) {
+void Hud_print(int client, const char[] msg, any ...) {
   int len = strlen(msg) + 255;
   char[] formattedMSG = new char[len];
   VFormat(formattedMSG, len, msg, 3);
@@ -72,29 +80,29 @@ void printHudMSG(int client, const char[] msg, any ...) {
   if (clientHudElementsCount[client] > 3) {
     clientHudStack[client].PushString(formattedMSG);
   } else {
-    addHudElement(client, formattedMSG);
+    Hud_addElement(client, formattedMSG);
   }
 
-  createHudElementsTimer(client);
+  Hud_createElementsTimer(client);
 }
 
-void checkElementsStack(int client) {
+void Hud_checkElementsStack(int client) {
   if (clientHudStack[client].Empty) {
     return;
   }
 
   char buffer[HUD_STACK_BLOCKSIZE + 1];
   clientHudStack[client].PopString(buffer, sizeof(buffer));
-  addHudElement(client, buffer);
-  createHudElementsTimer(client);
+  Hud_addElement(client, buffer);
+  Hud_createElementsTimer(client);
 }
 
-public Action timerShowHud(Handle timer, any client) {
+public Action Hud_showTimer(Handle timer, any client) {
   if (!IsClientInGame(client) || !IsPlayerAlive(client))
     return;
 
   if (clientHudElementsCount[client]) {
-    checkElementsStack(client);
+    Hud_checkElementsStack(client);
     PrintHintText(client, "<font size='15'>%s\n%s\n%s\n%s</font>", clientHudElements[client][0], clientHudElements[client][1], clientHudElements[client][2], clientHudElements[client][3])
   } else {
     PrintHintText(client, "<font size='15'>[<font color='#345FA9'>Propaganda-</font><font color='#262E73'>GO</font><font color='#345FA9'>.pl</font>]\n[Rank: %d - %s]\n[Exp: %d / %d]\n[Perk: %s][Cash: %d]</font>", clientLvl[client], rankName[clientLvl[client]], clientExp[client], expTable[clientLvl[client]], perkName[clientPerk[client]], clientCash[client]);

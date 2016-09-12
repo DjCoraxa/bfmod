@@ -1,15 +1,15 @@
-void initBonusMenu() {
+void BonusMenu_init() {
   RegConsoleCmd("sm_bonus", cmd_sm_bonus);
 }
 
 public Action cmd_sm_bonus(int client, int args) {
-  openBonusMenu(client);
+  BonusMenu_openMenu(client);
 }
 
-void openBonusMenu(int client) {
+void BonusMenu_openMenu(int client) {
   char buffer[256];
 
-  Menu menu = new Menu(bonusMenuHandler);
+  Menu menu = new Menu(BonusMenu_menuHandler);
   menu.SetTitle("Bonus list");
 
   Format(buffer, sizeof(buffer), "Bonus %d HP / RANK [On]", HEALTH_PER_RANK)
@@ -30,7 +30,7 @@ void openBonusMenu(int client) {
   menu.Display(client, 60);
 }
 
-public int bonusMenuHandler(Menu menu, MenuAction action, int param1, int param2) {
+public int BonusMenu_menuHandler(Menu menu, MenuAction action, int param1, int param2) {
 	if (action == MenuAction_End) {
 		delete menu;
 	}

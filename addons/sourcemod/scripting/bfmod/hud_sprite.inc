@@ -5,25 +5,33 @@ Handle clientHudSpriteTimer[MAXPLAYERS + 1];
 //TODO: revrite code to "FIFO stack"
 ArrayStack clientHudSpriteStack[MAXPLAYERS + 1];
 
-void initHudSprite() {
+void HudSprite_init() {
   cvarSpriteHudTime = CreateConVar("bfmod_hud_sprite_time", "5.0", "");
   for (int i = 0; i < MAXPLAYERS; ++i) {
     clientHudSpriteStack[i] = new ArrayStack(90);
   }
 }
 
+void HudSprite_onLvlUp(int client, int lvl) {
+  HudSprite_show(client, rankSprite[lvl]);
+}
 
-void showHudSprite(int client, char[] sprite) {
+void HudSprite_show(int client, char[] sprite) {
+  clientHudSpriteStack[client].PushString(sprite);
+  
   if (clientHudSpriteTimer[client] == INVALID_HANDLE) {
-    clientHudSpriteTimer[client] = CreateTimer(cvarSpriteHudTime.FloatValue, showNextHudSprite, client, TIMER_REPEAT);
-    ClientCommand(client, "r_screenoverlay \"%s\"", sprite);
-  } else {
-    clientHudSpriteStack[client].PushString(sprite);
+    clientHudSpriteTimer[client] = CreateTimer(cvarSpriteHudTime.FloatValue, HudSprite_showNextTimer, client, TIMER_REPEAT);
+    TriggerTimer(clientHudSpriteTimer[client])
   }
 }
 
-public Action showNextHudSprite(Handle timer, any client) {
-  if (clientHudSpriteStack[client].Empty || !IsValidClient(client)) {
+public Action HudSprite_showNextTimer(Handle timer, any client) {
+  if (!IsValidClient(client)) {
+    clientHudSpriteTimer[client] = INVALID_HANDLE;
+    return Plugin_Stop;
+  }
+
+  if (clientHudSpriteStack[client].Empty) {
     ClientCommand(client, "r_screenoverlay \"\"");
     clientHudSpriteTimer[client] = INVALID_HANDLE;
     return Plugin_Stop;
@@ -32,6 +40,10 @@ public Action showNextHudSprite(Handle timer, any client) {
   char sprite[256];
   clientHudSpriteStack[client].PopString(sprite, sizeof(sprite));
   ClientCommand(client, "r_screenoverlay \"%s\"", sprite);
+
+  #if defined TEST_ENABLE
+    PrintToConsole(client, "[BFMod:TestMode:HudSprite] Show hud sprite \"%s\"", sprite);
+  #endif
 
   return Plugin_Continue;
 }
