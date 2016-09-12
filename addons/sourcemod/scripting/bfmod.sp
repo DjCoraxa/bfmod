@@ -30,7 +30,7 @@ public void OnPluginStart() {
   initBonusMenu();
   initPerkMenu();
   initPerkDescMenu();
-  initBFMenu();
+  BFMenu_init();
   initBFTop();
   initShop();
   initEvent();
