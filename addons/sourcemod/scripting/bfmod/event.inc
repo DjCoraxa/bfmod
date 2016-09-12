@@ -1,13 +1,13 @@
-void initEvent() {
-    HookEvent("player_spawn", eventPlayerSpawn);
-    HookEvent("player_team", eventPlayerTeam);
-    HookEvent("player_death", eventPlayerDeath);
-    HookEvent("bomb_planted", eventBombPlanted);
-    HookEvent("bomb_defused", eventBombDefused);
-    HookEvent("round_end", eventRoundEnd);
+void Event_init() {
+    HookEvent("player_spawn", Event_onPlayerSpawn);
+    HookEvent("player_team", Event_onPlayerTeam);
+    HookEvent("player_death", Event_onPlayerDeath);
+    HookEvent("bomb_planted", Event_onBombPlant);
+    HookEvent("bomb_defused", Event_onBombDefuse);
+    HookEvent("round_end", Event_onRoundEnd);
 }
 
-public Action eventPlayerSpawn(Event event, const char[] name, bool dontBroadcast) {
+public Action Event_onPlayerSpawn(Event event, const char[] name, bool dontBroadcast) {
   int client = GetClientOfUserId(event.GetInt("userid"));
 
   if (!IsValidClient(client) || !IsPlayerAlive(client)) {
@@ -19,7 +19,7 @@ public Action eventPlayerSpawn(Event event, const char[] name, bool dontBroadcas
   Tag_setRankTag(client);
 }
 
-public Action eventPlayerTeam(Event event, const char[] name, bool dontBroadcast) {
+public Action Event_onPlayerTeam(Event event, const char[] name, bool dontBroadcast) {
   int client = GetClientOfUserId(event.GetInt("userid"));
 
   if (!IsValidClient(client)) {
@@ -29,7 +29,7 @@ public Action eventPlayerTeam(Event event, const char[] name, bool dontBroadcast
   Tag_setRankTag(client);
 }
 
-public Action eventPlayerDeath(Event event, const char[] name, bool dontBroadcast) {
+public Action Event_onPlayerDeath(Event event, const char[] name, bool dontBroadcast) {
   int victim = GetClientOfUserId(event.GetInt("userid"));
   int attacker = GetClientOfUserId(event.GetInt("attacker"));
   int assister = GetClientOfUserId(event.GetInt("assister"));
@@ -56,7 +56,7 @@ public Action eventPlayerDeath(Event event, const char[] name, bool dontBroadcas
   ExpEvent_giveExpForAssist(assister);
 }
 
-public Action eventBombPlanted(Event event, const char[] name, bool dontBroadcast) {
+public Action Event_onBombPlant(Event event, const char[] name, bool dontBroadcast) {
   int client = GetClientOfUserId(event.GetInt("userid"));
 
   if (!IsValidClient(client)) {
@@ -66,7 +66,7 @@ public Action eventBombPlanted(Event event, const char[] name, bool dontBroadcas
   ExpEvent_giveExpForBombPlant(client);
 }
 
-public Action eventBombDefused(Event event, const char[] name, bool dontBroadcast) {
+public Action Event_onBombDefuse(Event event, const char[] name, bool dontBroadcast) {
   int client = GetClientOfUserId(event.GetInt("userid"));
 
   if (!IsValidClient(client)) {
@@ -75,13 +75,11 @@ public Action eventBombDefused(Event event, const char[] name, bool dontBroadcas
 
   ExpEvent_giveExpForBombDefuse(client);
 }
-public Action eventRoundEnd(Event event, const char[] name, bool dontBroadcast)
-{
+
+public Action Event_onRoundEnd(Event event, const char[] name, bool dontBroadcast) {
   int winnerTeam = event.GetInt("winner");
-  for(int client = 1; client <= MaxClients; client++)
-  {
-    if(IsValidClient(client) && GetClientTeam(client) == winnerTeam)
-    {
+  for (int client = 1; client <= MaxClients; client++) {
+    if(IsValidClient(client) && GetClientTeam(client) == winnerTeam) {
       giveExpForWinRound(client);
     }
   }

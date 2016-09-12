@@ -33,7 +33,7 @@ public void OnPluginStart() {
   BFMenu_init();
   BFTop_init();
   Shop_init();
-  initEvent();
+  Event_init();
   HudSprite_init();
   ExpEvent_init();
   HeadSprite_init();
