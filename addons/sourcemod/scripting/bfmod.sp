@@ -12,6 +12,7 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 #include "bfmod/client_rank"
 #include "bfmod/shop"
 #include "bfmod/sql"
+#include "bfmod/weapon_name"
 #include "bfmod/exp_event"
 #include "bfmod/hud_sprite"
 #include "bfmod/tag"
@@ -47,6 +48,7 @@ public void OnPluginStart() {
   HeadSprite_init();
   Hud_init();
   Tag_init();
+  WeaponName_init();
   AutoExecConfig(true, "bfmod");
 
   #if defined TEST_ENABLE
