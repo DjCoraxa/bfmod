@@ -25,7 +25,7 @@ public int BFMenu_MenuHandler(Menu menu, MenuAction action, int param1, int para
         case 1: PerkDescMenu_openMenu(param1);
         case 2: BonusMenu_openMenu(param1);
         case 3: BFTop_openMenu(param1);
-        case 4: openShopMenu(param1);
+        case 4: Shop_openMenu(param1);
       }
     }
   } else if (action == MenuAction_End) {

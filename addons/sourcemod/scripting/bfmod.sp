@@ -32,7 +32,7 @@ public void OnPluginStart() {
   PerkDescMenu_init();
   BFMenu_init();
   BFTop_init();
-  initShop();
+  Shop_init();
   initEvent();
   HudSprite_init();
   ExpEvent_init();
