@@ -28,7 +28,7 @@ public void OnPluginStart() {
   LoadTranslations("bfmod.phrases.txt");
   sqlInit();
   BonusMenu_init();
-  initPerkMenu();
+  PerkMenu_init();
   PerkDescMenu_init();
   BFMenu_init();
   BFTop_init();

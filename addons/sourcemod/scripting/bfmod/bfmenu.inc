@@ -21,7 +21,7 @@ public int BFMenu_MenuHandler(Menu menu, MenuAction action, int param1, int para
   if (action == MenuAction_Select) {
     if (IsValidClient(param1)) {
       switch (param2) {
-        case 0: openPerkMenu(param1);
+        case 0: PerkMenu_openMenu(param1);
         case 1: PerkDescMenu_openMenu(param1);
         case 2: BonusMenu_openMenu(param1);
         case 3: BFTop_openMenu(param1);

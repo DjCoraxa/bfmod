@@ -1,15 +1,15 @@
-void initPerkMenu() {
+void PerkMenu_init() {
   RegConsoleCmd("sm_perk", cmd_sm_perk);
 }
 
 public Action cmd_sm_perk(int client, int args) {
-  openPerkMenu(client);
+  PerkMenu_openMenu(client);
 }
 
-void openPerkMenu(int client) {
+void PerkMenu_openMenu(int client) {
   char buffor[256];
 
-  Menu menu = new Menu(perkMenuHandler);
+  Menu menu = new Menu(PerkMenu_menuHandler);
   menu.SetTitle("Chooser perk");
 
   for (int i = 1; i < sizeof(perkName); ++i) {
@@ -20,7 +20,7 @@ void openPerkMenu(int client) {
   menu.Display(client, 60);
 }
 
-public int perkMenuHandler(Menu menu, MenuAction action, int param1, int param2) {
+public int PerkMenu_menuHandler(Menu menu, MenuAction action, int param1, int param2) {
   if (action == MenuAction_Select) {
     if (IsValidClient(param1)) {
       changePerk(param1, view_as<Perk>(param2 + 1));
