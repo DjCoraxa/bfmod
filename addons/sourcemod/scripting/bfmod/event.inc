@@ -12,6 +12,7 @@ public Action Event_onPlayerSpawn(Event event, const char[] name, bool dontBroad
   HeadSprite_eventOnPlayerSpawn(client);
   SpawnBonus_eventOnPlayerSpawn(client);
   Tag_eventOnPlayerSpawn(client);
+  Hud_eventOnPlayerSpawn(client);
 }
 
 public Action Event_onPlayerTeam(Event event, const char[] name, bool dontBroadcast) {

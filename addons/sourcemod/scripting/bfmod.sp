@@ -32,6 +32,7 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 
 public void OnPluginStart() {
   LoadTranslations("bfmod.phrases.txt");
+  Rank_init();
   Sql_init();
   BonusMenu_init();
   PerkMenu_init();
@@ -71,7 +72,7 @@ public void OnClientDisconnect(int client) {
 
 void onLvlUp(int client, int lvl) {
   HudSprite_onLvlUp(client, lvl);
-  CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_promote_rank", rankName[lvl]);
+  Rank_onLvlUp(client, lvl);
 }
 
 bool IsValidClient(int client) {

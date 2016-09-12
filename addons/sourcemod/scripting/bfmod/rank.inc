@@ -1,176 +1,107 @@
 int VIP_BONUS_EXP = 20;
 
-char rankName[][] = {
-  "None",
-  "Private First Class",
-  "Private First Class 1 Star",
-  "Private First Class 2 Stars",
-  "Private First Class 3 Stars",
-  "Lance Corporal",
-  "Lance Corporal 1 Star",
-  "Lance Corporal 2 Stars",
-  "Lance Corporal 3 Stars",
-  "Corporal",
-  "Corporal 1 Star",
-  "Corporal 2 Stars",
-  "Corporal 3 Stars",
-  "Sergeant",
-  "Sergeant 1 Star",
-  "Sergeant 2 Stars",
-  "Sergeant 3 Stars",
-  "Staff Sergeant",
-  "Staff Sergeant 1 Star",
-  "Staff Sergeant 2 Stars",
-  "Gunnery Sergeant",
-  "Gunnery Sergeant 1 Star",
-  "Gunnery Sergeant 2 Star",
-  "Master Sergeant",
-  "Master Sergeant 1 Star",
-  "Master Sergeant 2 Star",
-  "First Sergeant",
-  "First Sergeant 1 Star",
-  "First Sergeant 2 Stars",
-  "Master Gunnery Sergeant",
-  "Master Gunnery Sergeant 1 Star",
-  "Master Gunnery Sergeant 2 Stars",
-  "Sergeant Major",
-  "Sergeant Major 1 Star",
-  "Sergeant Major 2 Stars",
-  "Warrant Officer One",
-  "Chief Warrant Officer Two",
-  "Chief Warrant Officer Three",
-  "Chief Warrant Officer Four",
-  "Chief Warrant Officer Five",
-  "Second Lieutenant",
-  "First Lieutenant",
-  "Captain",
-  "Major",
-  "Lieutenant Colonel",
-  "Colonel"
-};
+const int MAX_RANK_NAME_LENGTH = 256;
+const int MAX_RANK_SPRITE_PATH_LENGTH = 256;
 
-int expTable[] = {
-  3000,
-  8000,
-  11000,
-  13000,
-  17000,
-  18000,
-  21000,
-  24000,
-  25000,
-  28000,
-  29000,
-  32000,
-  33000,
-  35000,
-  37000,
-  39000,
-  40000,
-  42000,
-  46000,
-  47000,
-  48000,
-  51000,
-  52000,
-  54000,
-  55000,
-  56000,
-  58000,
-  60000,
-  62000,
-  66000,
-  69000,
-  70000,
-  80000,
-  90000,
-  100000,
-  150000,
-  200000,
-  250000,
-  300000,
-  350000,
-  400000,
-  450000,
-  500000,
-  550000,
-  600000,
-  3650000
-};
+char RANK_PATH[] = "config/bfmod/rank.kv";
 
-char rankSprite[][] = {
-  "bfmod/rank/1",
-  "bfmod/rank/1",
-  "bfmod/rank/2",
-  "bfmod/rank/3",
-  "bfmod/rank/4",
-  "bfmod/rank/5",
-  "bfmod/rank/6",
-  "bfmod/rank/7",
-  "bfmod/rank/8",
-  "bfmod/rank/9",
-  "bfmod/rank/10",
-  "bfmod/rank/11",
-  "bfmod/rank/12",
-  "bfmod/rank/13",
-  "bfmod/rank/14",
-  "bfmod/rank/15",
-  "bfmod/rank/16",
-  "bfmod/rank/17",
-  "bfmod/rank/18",
-  "bfmod/rank/19",
-  "bfmod/rank/20",
-  "bfmod/rank/21",
-  "bfmod/rank/22",
-  "bfmod/rank/23",
-  "bfmod/rank/24",
-  "bfmod/rank/25",
-  "bfmod/rank/26",
-  "bfmod/rank/27",
-  "bfmod/rank/28",
-  "bfmod/rank/29",
-  "bfmod/rank/30",
-  "bfmod/rank/31",
-  "bfmod/rank/32",
-  "bfmod/rank/33",
-  "bfmod/rank/34",
-  "bfmod/rank/35",
-  "bfmod/rank/36",
-  "bfmod/rank/37",
-  "bfmod/rank/38",
-  "bfmod/rank/39",
-  "bfmod/rank/40",
-  "bfmod/rank/41",
-  "bfmod/rank/42",
-  "bfmod/rank/43",
-  "bfmod/rank/44",
-  "bfmod/rank/45"
-};
+ArrayList rankName;
+ArrayList rankSprite;
+ArrayList rankExp;
+
+int rankCount;
 
 int clientLvl[MAXPLAYERS + 1];
 int clientExp[MAXPLAYERS + 1];
+
+void Rank_init() {
+  rankName = new ArrayList(MAX_RANK_NAME_LENGTH + 1);
+  rankSprite = new ArrayList(MAX_RANK_SPRITE_PATH_LENGTH + 1);
+  rankExp = new ArrayList();
+  Rank_parseRank();
+}
 
 void Rank_onMapStart() {
   Rank_precacheSprites();
 }
 
+void Rank_onLvlUp(int client, int lvl) {
+  char nameBuffer[MAX_RANK_NAME_LENGTH + 1];
+  Rank_getName(lvl, nameBuffer, sizeof(nameBuffer));
+  CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_promote_rank", nameBuffer);
+}
+
+void Rank_add(char[] name, char[] sprite, int exp) {
+  rankName.PushString(name);
+  rankSprite.PushString(sprite);
+  rankExp.Push(exp);
+  ++rankCount;
+
+  #if defined TEST_ENABLE
+    PrintToServer("[BFMod:TestMode:Rank] Add rank #%d Name=\"%s\" sprite=\"%s\" exp=%d", rankCount, name, sprite, exp);
+  #endif
+}
+
+void Rank_parseRank() {
+  char pathToKV[PLATFORM_MAX_PATH + 1];
+  BuildPath(Path_SM, pathToKV, sizeof(pathToKV), RANK_PATH);
+  KeyValues kv = new KeyValues("bfrank");
+
+  if (!kv.ImportFromFile(pathToKV)) {
+    SetFailState("[BFMod:Rank] Can't load rank file \'%s\'", pathToKV);
+  }
+
+  char nameBuffer[MAX_RANK_NAME_LENGTH + 1];
+  char spriteBuffer[MAX_RANK_SPRITE_PATH_LENGTH + 1];
+
+  if (!kv.GotoFirstSubKey()) {
+    return;
+  }
+
+  do {
+    kv.GetString("name", nameBuffer, sizeof(nameBuffer), "");
+    kv.GetString("sprite", spriteBuffer, sizeof(spriteBuffer), "");
+    Rank_add(nameBuffer, spriteBuffer, kv.GetNum("exp"));
+  } while (kv.GotoNextKey());
+
+  delete kv;
+}
+
+void Rank_precacheSprite(char[] sprite) {
+  char buffer[256];
+  Format(buffer, sizeof(buffer), "%s.vtf", sprite);
+  PrecacheDecal(buffer, true);
+  Format(buffer, sizeof(buffer), "materials/%s.vtf", sprite);
+  AddFileToDownloadsTable(buffer);
+  Format(buffer, sizeof(buffer), "%s.vmt", sprite);
+  PrecacheDecal(buffer, true);
+  Format(buffer, sizeof(buffer), "materials/%s.vmt", sprite);
+  AddFileToDownloadsTable(buffer);
+}
+
 void Rank_precacheSprites() {
-  for (int i = 1; i < sizeof(rankSprite); ++i) {
-    char buffer[256];
-    Format(buffer, sizeof(buffer), "%s.vtf", rankSprite[i]);
-    PrecacheDecal(buffer, true);
-    Format(buffer, sizeof(buffer), "materials/%s.vtf", rankSprite[i]);
-    AddFileToDownloadsTable(buffer);
-    Format(buffer, sizeof(buffer), "%s.vmt", rankSprite[i]);
-    PrecacheDecal(buffer, true);
-    Format(buffer, sizeof(buffer), "materials/%s.vmt", rankSprite[i]);
-    AddFileToDownloadsTable(buffer);
+  for (int i = 0; i < rankCount; ++i) {
+    char spriteBuffer[MAX_RANK_SPRITE_PATH_LENGTH + 1];
+    rankSprite.GetString(i, spriteBuffer, sizeof(spriteBuffer));
+    Rank_precacheSprite(spriteBuffer);
   }
 }
 
+void Rank_getName(int rank, char[] buffer, int maxLength) {
+  rankName.GetString(rank, buffer, maxLength);
+}
+
+void Rank_getSprite(int rank, char[] buffer, int maxLength) {
+  rankSprite.GetString(rank, buffer, maxLength);
+}
+
+int Rank_getExp(int rank) {
+  return rankExp.Get(rank);
+}
+
 void Rank_checkLvl(int client) {
-  while (clientExp[client] >= expTable[clientLvl[client]]) {
-    clientExp[client] -= expTable[clientLvl[client]];
+  while (clientExp[client] >= Rank_getExp(clientLvl[client])) {
+    clientExp[client] -= Rank_getExp(clientLvl[client]);
     ++clientLvl[client];
     onLvlUp(client, clientLvl[client]);
   }

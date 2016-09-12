@@ -13,12 +13,14 @@ void HudSprite_init() {
 }
 
 void HudSprite_onLvlUp(int client, int lvl) {
-  HudSprite_show(client, rankSprite[lvl]);
+  char spriteBuffer[MAX_RANK_SPRITE_PATH_LENGTH + 1];
+  Rank_getSprite(lvl, spriteBuffer, sizeof(spriteBuffer));
+  HudSprite_show(client, spriteBuffer);
 }
 
 void HudSprite_show(int client, char[] sprite) {
   clientHudSpriteStack[client].PushString(sprite);
-  
+
   if (clientHudSpriteTimer[client] == INVALID_HANDLE) {
     clientHudSpriteTimer[client] = CreateTimer(cvarSpriteHudTime.FloatValue, HudSprite_showNextTimer, client, TIMER_REPEAT);
     TriggerTimer(clientHudSpriteTimer[client])
