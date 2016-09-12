@@ -33,7 +33,7 @@ public void BFTop_prepareMenuCB(Database db, DBResultSet results, const char[] e
   char name [64];
   for (int i = 1; results.FetchRow(); ++i) {
     results.FetchString(0, name, sizeof(name));
-    Format(buffer, sizeof(buffer), "[Pos %d] %s [Rank %d][Exp %d / %d][Cash %d]", i, name, results.FetchInt(1), results.FetchInt(2), expTable[results.FetchInt(1)], results.FetchInt(3));
+    Format(buffer, sizeof(buffer), "[Pos %d] %s [Rank %d][Exp %d / %d][Cash %d]", i, name, results.FetchInt(1), results.FetchInt(2), Rank_getExp(results.FetchInt(1)), results.FetchInt(3));
     topMenu.AddItem("top", buffer);
   }
 }

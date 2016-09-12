@@ -19,16 +19,16 @@ void HeadSprite_eventOnPlayerDeath(int victim) {
 }
 
 public Action HeadSprite_createModel(Handle timer, any client){
-    if (hideHeadSpriteTimer[client] != INVALID_HANDLE) {
-      KillTimer(hideHeadSpriteTimer[client]);
-      hideHeadSpriteTimer[client] = INVALID_HANDLE;
-    }
+  if (hideHeadSpriteTimer[client] != INVALID_HANDLE) {
+    KillTimer(hideHeadSpriteTimer[client]);
+    hideHeadSpriteTimer[client] = INVALID_HANDLE;
+  }
 
-    HeadSprite_safeDelete(headSprite[client]);
-    headSprite[client] = HeadSprite_createIcon(client);
-    HeadSprite_placeAndBindIcon(client, headSprite[client]);
+  HeadSprite_safeDelete(headSprite[client]);
+  headSprite[client] = HeadSprite_createIcon(client);
+  HeadSprite_placeAndBindIcon(client, headSprite[client]);
 
-    hideHeadSpriteTimer[client] = CreateTimer(cvarHeadSpriteHideTime.FloatValue, HeadSprite_hideTimerCB, client);
+  hideHeadSpriteTimer[client] = CreateTimer(cvarHeadSpriteHideTime.FloatValue, HeadSprite_hideTimerCB, client);
 }
 
 public Action HeadSprite_hideTimerCB(Handle timer, any client) {
@@ -37,42 +37,45 @@ public Action HeadSprite_hideTimerCB(Handle timer, any client) {
 }
 
 int HeadSprite_createIcon(int client) {
-    char buffer[256];
-    Format(buffer, sizeof(buffer), "materials/%s.vmt", rankSprite[clientLvl[client]]);
+  char spriteBuffer[MAX_RANK_SPRITE_PATH_LENGTH + 1];
+  Rank_getSprite(clientLvl[client], spriteBuffer, sizeof(spriteBuffer));
 
-    new sprite = CreateEntityByName("env_sprite_oriented");
+  char buffer[256];
+  Format(buffer, sizeof(buffer), "materials/%s.vmt", spriteBuffer);
 
-    if(sprite == -1)    return -1;
+  new sprite = CreateEntityByName("env_sprite_oriented");
 
-    DispatchKeyValue(sprite, "classname", "env_sprite_oriented");
-    DispatchKeyValue(sprite, "spawnflags", "1");
-    DispatchKeyValue(sprite, "scale", "0.3");
-    DispatchKeyValue(sprite, "rendermode", "1");
-    DispatchKeyValue(sprite, "rendercolor", "255 255 255");
-    DispatchKeyValue(sprite, "model", buffer);
+  if(sprite == -1)    return -1;
 
-    if(DispatchSpawn(sprite)) {
-      return sprite;
-    }
+  DispatchKeyValue(sprite, "classname", "env_sprite_oriented");
+  DispatchKeyValue(sprite, "spawnflags", "1");
+  DispatchKeyValue(sprite, "scale", "0.3");
+  DispatchKeyValue(sprite, "rendermode", "1");
+  DispatchKeyValue(sprite, "rendercolor", "255 255 255");
+  DispatchKeyValue(sprite, "model", buffer);
 
-    return -1;
+  if(DispatchSpawn(sprite)) {
+    return sprite;
+  }
+
+  return -1;
 }
 
 void HeadSprite_placeAndBindIcon(int client, int entity) {
-    float origin[3];
+  float origin[3];
 
-    if (IsValidEntity(entity) && IsValidClient(client)) {
-        GetClientAbsOrigin(client, origin);
-        origin[2] = origin[2] + 30.0;
-        TeleportEntity(entity, origin, NULL_VECTOR, NULL_VECTOR);
+  if (IsValidEntity(entity) && IsValidClient(client)) {
+    GetClientAbsOrigin(client, origin);
+    origin[2] = origin[2] + 30.0;
+    TeleportEntity(entity, origin, NULL_VECTOR, NULL_VECTOR);
 
-        SetVariantString("!activator");
-        AcceptEntityInput(entity, "SetParent", client);
-    }
+    SetVariantString("!activator");
+    AcceptEntityInput(entity, "SetParent", client);
+  }
 }
 
 void HeadSprite_safeDelete(int entity) {
-    if (IsValidEntity(entity)) {
-        AcceptEntityInput(entity, "Kill");
-    }
+  if (IsValidEntity(entity)) {
+    AcceptEntityInput(entity, "Kill");
+  }
 }
