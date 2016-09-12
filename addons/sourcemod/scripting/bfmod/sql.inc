@@ -52,13 +52,13 @@ void Sql_loadClientData(int client) {
     PrintToServer("[BFMod] client: %N RowCount %d", client, query.RowCount);
     if (query.RowCount && query.FetchRow()) {
       PrintToServer("[BFMod][Load] client: %N lvl: %d exp: %d", client, query.FetchInt(0), query.FetchInt(1));
-      clientLvl[client] = query.FetchInt(0);
-      clientExp[client] = query.FetchInt(1);
+      ClientRank_setLvl(client, query.FetchInt(0));
+      ClientRank_setExp(client, query.FetchInt(1));
       clientCash[client] = query.FetchInt(2);
     } else {
       PrintToServer("[BFMod] client: %N not found in DB, load default data", client);
-      clientLvl[client] = 1;
-      clientExp[client] = 0;
+      ClientRank_setLvl(client, 1);
+      ClientRank_setExp(client, 0);
       clientCash[client] = 0;
     }
   }
@@ -75,10 +75,10 @@ void Sql_saveClientData(int client) {
   SQL_EscapeString(db, nick, buffer, sizeof(buffer));
 
   char querySave[256];
-  Format(querySave, sizeof(querySave), "INSERT OR REPLACE INTO bfmod(steamid, lvl, exp, name, cash) VALUES(\"%s\", %d, %d, \"%s\", %d)", steamid, clientLvl[client], clientExp[client], buffer, clientCash[client]);
+  Format(querySave, sizeof(querySave), "INSERT OR REPLACE INTO bfmod(steamid, lvl, exp, name, cash) VALUES(\"%s\", %d, %d, \"%s\", %d)", steamid, ClientRank_getLvl(client), ClientRank_getExp(client), buffer, clientCash[client]);
   db.Query(saveQuertCB, querySave);
 
-  PrintToServer("[BFMod][Save] client: %N lvl: %d exp: %d", client, clientLvl[client], clientExp[client]);
+  PrintToServer("[BFMod][Save] client: %N lvl: %d exp: %d", client, ClientRank_getLvl(client), ClientRank_getExp(client));
 }
 
 void Sql_getTopClients(int count, SQLQueryCallback callback) {

@@ -11,9 +11,6 @@ ArrayList rankExp;
 
 int rankCount;
 
-int clientLvl[MAXPLAYERS + 1];
-int clientExp[MAXPLAYERS + 1];
-
 void Rank_init() {
   rankName = new ArrayList(MAX_RANK_NAME_LENGTH + 1);
   rankSprite = new ArrayList(MAX_RANK_SPRITE_PATH_LENGTH + 1);
@@ -23,12 +20,6 @@ void Rank_init() {
 
 void Rank_onMapStart() {
   Rank_precacheSprites();
-}
-
-void Rank_onLvlUp(int client, int lvl) {
-  char nameBuffer[MAX_RANK_NAME_LENGTH + 1];
-  Rank_getName(lvl, nameBuffer, sizeof(nameBuffer));
-  CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_promote_rank", nameBuffer);
 }
 
 void Rank_add(char[] name, char[] sprite, int exp) {
@@ -97,21 +88,4 @@ void Rank_getSprite(int rank, char[] buffer, int maxLength) {
 
 int Rank_getExp(int rank) {
   return rankExp.Get(rank);
-}
-
-void Rank_checkLvl(int client) {
-  while (clientExp[client] >= Rank_getExp(clientLvl[client])) {
-    clientExp[client] -= Rank_getExp(clientLvl[client]);
-    ++clientLvl[client];
-    onLvlUp(client, clientLvl[client]);
-  }
-}
-
-int Rank_giveExp(int client, int exp) {
-  int value = exp
-  if (GetUserFlagBits(client) & ADMFLAG_RESERVATION) {
-    value += VIP_BONUS_EXP;
-  }
-  clientExp[client] += value;
-  return value;
 }

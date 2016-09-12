@@ -38,7 +38,7 @@ public Action HeadSprite_hideTimerCB(Handle timer, any client) {
 
 int HeadSprite_createIcon(int client) {
   char spriteBuffer[MAX_RANK_SPRITE_PATH_LENGTH + 1];
-  Rank_getSprite(clientLvl[client], spriteBuffer, sizeof(spriteBuffer));
+  Rank_getSprite(ClientRank_getLvl(client), spriteBuffer, sizeof(spriteBuffer));
 
   char buffer[256];
   Format(buffer, sizeof(buffer), "materials/%s.vmt", spriteBuffer);

@@ -24,7 +24,7 @@ void Hud_onClientDisconnect(int client) {
 }
 
 void Hud_eventOnPlayerSpawn(int client) {
-  Rank_getName(clientLvl[client], clientRankName[client], sizeof(clientRankName[]));
+  Rank_getName(ClientRank_getLvl(client), clientRankName[client], sizeof(clientRankName[]));
 }
 
 void Hud_create(int client) {
@@ -110,6 +110,6 @@ public Action Hud_showTimer(Handle timer, any client) {
     Hud_checkElementsStack(client);
     PrintHintText(client, "<font size='15'>%s\n%s\n%s\n%s</font>", clientHudElements[client][0], clientHudElements[client][1], clientHudElements[client][2], clientHudElements[client][3])
   } else {
-    PrintHintText(client, "<font size='15'>[<font color='#345FA9'>Propaganda-</font><font color='#262E73'>GO</font><font color='#345FA9'>.pl</font>]\n[Rank: %d - %s]\n[Exp: %d / %d]\n[Perk: %s][Cash: %d]</font>", clientLvl[client], clientRankName[client], clientExp[client], Rank_getExp(clientLvl[client]), perkName[clientPerk[client]], clientCash[client]);
+    PrintHintText(client, "<font size='15'>[<font color='#345FA9'>Propaganda-</font><font color='#262E73'>GO</font><font color='#345FA9'>.pl</font>]\n[Rank: %d - %s]\n[Exp: %d / %d]\n[Perk: %s][Cash: %d]</font>", ClientRank_getLvl(client), clientRankName[client], ClientRank_getExp(client), Rank_getExp(ClientRank_getLvl(client)), perkName[clientPerk[client]], clientCash[client]);
   }
 }

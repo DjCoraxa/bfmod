@@ -5,9 +5,9 @@ void SpawnBonus_eventOnPlayerSpawn(int client) {
 }
 
 void SpawnBonus_giveSpawnBonus(int client) {
-  SetEntityHealth(client, GetClientHealth(client) + HEALTH_PER_RANK * clientLvl[client]);
+  SetEntityHealth(client, GetClientHealth(client) + HEALTH_PER_RANK * ClientRank_getLvl(client));
 
-  switch (clientLvl[client]) {
+  switch (ClientRank_getLvl(client)) {
     case 10:
       GivePlayerItem(client, "weapon_hegrenade");
     case 20:

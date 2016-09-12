@@ -9,6 +9,7 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 #define TEST_ENABLE
 
 #include "bfmod/rank"
+#include "bfmod/client_rank"
 #include "bfmod/shop"
 #include "bfmod/sql"
 #include "bfmod/exp_event"
@@ -72,7 +73,7 @@ public void OnClientDisconnect(int client) {
 
 void onLvlUp(int client, int lvl) {
   HudSprite_onLvlUp(client, lvl);
-  Rank_onLvlUp(client, lvl);
+  ClientRank_onLvlUp(client, lvl);
 }
 
 bool IsValidClient(int client) {

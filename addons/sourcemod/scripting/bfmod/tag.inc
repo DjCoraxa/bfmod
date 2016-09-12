@@ -22,6 +22,6 @@ void Tag_setRankTag(int client) {
   }
 
   char tag[64];
-  Format(tag, sizeof(tag), "[Rank %d]", clientLvl[client]);
+  Format(tag, sizeof(tag), "[Rank %d]", ClientRank_getLvl(client));
   CS_SetClientClanTag(client, tag);
 }

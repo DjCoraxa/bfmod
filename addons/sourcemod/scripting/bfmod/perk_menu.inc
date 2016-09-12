@@ -14,7 +14,7 @@ void PerkMenu_openMenu(int client) {
 
   for (int i = 1; i < sizeof(perkName); ++i) {
     Format(buffor, sizeof(buffor), "%s [Request rank %d]", perkName[i], perkLvlMin[i]);
-    menu.AddItem(perkName[i], buffor, clientLvl[client] >= perkLvlMin[i] ? ITEMDRAW_DEFAULT : ITEMDRAW_DISABLED);
+    menu.AddItem(perkName[i], buffor, ClientRank_getLvl(client) >= perkLvlMin[i] ? ITEMDRAW_DEFAULT : ITEMDRAW_DISABLED);
   }
 
   menu.Display(client, 60);

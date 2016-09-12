@@ -18,14 +18,14 @@ void BonusMenu_openMenu(int client) {
   Format(buffer, sizeof(buffer), "Bonus %d xp [%s]", VIP_BONUS_EXP, GetUserFlagBits(client) & ADMFLAG_RESERVATION ? "On" : "Off, only VIP");
   menu.AddItem("vip_exp", buffer, GetUserFlagBits(client) & ADMFLAG_RESERVATION ? ITEMDRAW_DEFAULT : ITEMDRAW_DISABLED);
 
-  Format(buffer, sizeof(buffer), "Free HE on spawn [%s]", clientLvl[client] >= 10 ? "On" : "Off, need rank 10");
-  menu.AddItem("10lvl", buffer, clientLvl[client] >= 10 ? ITEMDRAW_DEFAULT : ITEMDRAW_DISABLED);
+  Format(buffer, sizeof(buffer), "Free HE on spawn [%s]", ClientRank_getLvl(client) >= 10 ? "On" : "Off, need rank 10");
+  menu.AddItem("10lvl", buffer, ClientRank_getLvl(client) >= 10 ? ITEMDRAW_DEFAULT : ITEMDRAW_DISABLED);
 
-  Format(buffer, sizeof(buffer), "Free INC on spawn [%s]", clientLvl[client] >= 20 ? "On" : "Off, need rank 20");
-  menu.AddItem("20lvl", buffer, clientLvl[client] >= 20 ? ITEMDRAW_DEFAULT : ITEMDRAW_DISABLED);
+  Format(buffer, sizeof(buffer), "Free INC on spawn [%s]", ClientRank_getLvl(client) >= 20 ? "On" : "Off, need rank 20");
+  menu.AddItem("20lvl", buffer, ClientRank_getLvl(client) >= 20 ? ITEMDRAW_DEFAULT : ITEMDRAW_DISABLED);
 
-  Format(buffer, sizeof(buffer), "Free FlashBang on spawn [%s]", clientLvl[client] >= 30 ? "On" : "Off, need rank 30");
-  menu.AddItem("30lvl", buffer, clientLvl[client] >= 30 ? ITEMDRAW_DEFAULT : ITEMDRAW_DISABLED);
+  Format(buffer, sizeof(buffer), "Free FlashBang on spawn [%s]", ClientRank_getLvl(client) >= 30 ? "On" : "Off, need rank 30");
+  menu.AddItem("30lvl", buffer, ClientRank_getLvl(client) >= 30 ? ITEMDRAW_DEFAULT : ITEMDRAW_DISABLED);
 
   menu.Display(client, 60);
 }
