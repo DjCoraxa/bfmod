@@ -8,9 +8,12 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 
 #define TEST_ENABLE
 
+#include "bfmod/helper"
+
 #include "bfmod/rank"
 #include "bfmod/client_rank"
 #include "bfmod/shop"
+#include "bfmod/ribbon"
 #include "bfmod/sql"
 #include "bfmod/weapon_name"
 #include "bfmod/exp_event"
@@ -30,6 +33,7 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 
 #if defined TEST_ENABLE
   #include "bfmodtest/hud_sprite_stack"
+  #include "bfmodtest/ribbon"
 #endif
 
 public void OnPluginStart() {
@@ -49,16 +53,19 @@ public void OnPluginStart() {
   Hud_init();
   Tag_init();
   WeaponName_init();
+  Ribbon_init();
   AutoExecConfig(true, "bfmod");
 
   #if defined TEST_ENABLE
     TestHudSpriteStack_init();
+    TestRibbon_init();
   #endif
 }
 
 public void OnMapStart() {
   Rank_onMapStart();
   BFTop_onMapStart();
+  Ribbon_onMapStart();
 }
 
 public void OnClientPutInServer(int client) {
@@ -66,6 +73,7 @@ public void OnClientPutInServer(int client) {
   Hud_onClientPutInServer(client);
   Tag_onClientPutInServer(client);
   Perk_onClientPutInServer(client);
+  Ribbon_onClientPutInServer(client);
 }
 
 public void OnClientDisconnect(int client) {

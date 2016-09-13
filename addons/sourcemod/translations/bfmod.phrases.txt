@@ -46,4 +46,10 @@
     "en" "{purple}You got {green}{1} xp {purple}bonus for {green}combo x{2}"
     "pl" "{purple}Otrzymałeś {green}{1} xp {purple}bonusu za {green}combo x{2}"
   }
+
+  "bfmod_exp_ribbon" {
+    "#format" "{1:s},{2:d}" // [1: Ribbon name] [2: Exp]
+    "en" "{purple}You got {green}{2} xp {purple}for {green}{1}"
+    "pl" "{purple}Otrzymałeś {green}{2} xp {purple}za {green}{2}"
+  }
 }
