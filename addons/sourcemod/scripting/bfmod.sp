@@ -65,6 +65,7 @@ public void OnPluginStart() {
 public void OnMapStart() {
   Rank_onMapStart();
   BFTop_onMapStart();
+  Ribbon_onMapStart();
 }
 
 public void OnClientPutInServer(int client) {

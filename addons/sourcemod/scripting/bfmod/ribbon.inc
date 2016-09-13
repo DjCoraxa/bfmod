@@ -37,7 +37,9 @@ void Ribbon_init() {
   }
 
   Ribbon_parse();
+}
 
+void Ribbon_onMapStart() {
   for (int i = 0; i < sizeof(ribbonSprite); ++i) {
     Helper_precacheSprite(ribbonSprite[i]);
   }
