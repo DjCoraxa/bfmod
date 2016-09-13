@@ -58,23 +58,11 @@ void Rank_parseRank() {
   delete kv;
 }
 
-void Rank_precacheSprite(char[] sprite) {
-  char buffer[256];
-  Format(buffer, sizeof(buffer), "%s.vtf", sprite);
-  PrecacheDecal(buffer, true);
-  Format(buffer, sizeof(buffer), "materials/%s.vtf", sprite);
-  AddFileToDownloadsTable(buffer);
-  Format(buffer, sizeof(buffer), "%s.vmt", sprite);
-  PrecacheDecal(buffer, true);
-  Format(buffer, sizeof(buffer), "materials/%s.vmt", sprite);
-  AddFileToDownloadsTable(buffer);
-}
-
 void Rank_precacheSprites() {
   for (int i = 0; i < rankCount; ++i) {
     char spriteBuffer[MAX_RANK_SPRITE_PATH_LENGTH + 1];
     rankSprite.GetString(i, spriteBuffer, sizeof(spriteBuffer));
-    Rank_precacheSprite(spriteBuffer);
+    Helper_precacheSprite(spriteBuffer);
   }
 }
 

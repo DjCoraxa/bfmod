@@ -8,6 +8,8 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 
 #define TEST_ENABLE
 
+#include "bfmod/helper"
+
 #include "bfmod/rank"
 #include "bfmod/client_rank"
 #include "bfmod/shop"
