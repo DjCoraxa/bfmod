@@ -37,6 +37,10 @@ void Ribbon_init() {
   }
 
   Ribbon_parse();
+
+  for (int i = 0; i < sizeof(ribbonSprite); ++i) {
+    Helper_precacheSprite(ribbonSprite[i]);
+  }
 }
 
 void Ribbon_parse() {
@@ -83,6 +87,7 @@ void Ribbon_incClientProgress(int client, Ribbon ribbon) {
     ++clientRibbonCount[client][ribbon];
     clientRibbonProgress[client][ribbon] = 0;
     ClientRank_giveExp(client, ribbonExp[ribbon]);
+    HudSprite_show(client, ribbonSprite[ribbon]);
     PrintToChat(client, "ribbon complete %s you got %d", ribbonName[ribbon], ribbonExp[ribbon]);
   }
 }
