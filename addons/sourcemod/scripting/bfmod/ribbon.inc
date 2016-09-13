@@ -43,6 +43,18 @@ void Ribbon_init() {
   }
 }
 
+//Ribbon progress save, I add probably latter
+void Ribbon_onClientPutInServer(int client) {
+  if (!IsValidClient(client)) {
+    return;
+  }
+
+  for (int i = 0; i < RIBBON_COUNT; ++i) {
+    clientRibbonProgress[client][i] = 0;
+    clientRibbonCount[client][i] = 0;
+  }
+}
+
 void Ribbon_parse() {
   char pathToKV[PLATFORM_MAX_PATH + 1];
   BuildPath(Path_SM, pathToKV, sizeof(pathToKV), RIBBON_PATH);

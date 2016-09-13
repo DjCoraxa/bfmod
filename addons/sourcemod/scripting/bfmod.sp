@@ -72,6 +72,7 @@ public void OnClientPutInServer(int client) {
   Hud_onClientPutInServer(client);
   Tag_onClientPutInServer(client);
   Perk_onClientPutInServer(client);
+  Ribbon_onClientPutInServer(client);
 }
 
 public void OnClientDisconnect(int client) {
