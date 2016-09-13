@@ -30,6 +30,7 @@ public Action Event_onPlayerDeath(Event event, const char[] name, bool dontBroad
 
   HeadSprite_eventOnPlayerDeath(victim);
   ExpEvent_eventOnPlayerDeath(victim, attacker, assister, weaponBuffer, hs);
+  Ribbon_eventOnPlayerDeath(attacker, weaponBuffer);
 }
 
 public Action Event_onBombPlant(Event event, const char[] name, bool dontBroadcast) {
