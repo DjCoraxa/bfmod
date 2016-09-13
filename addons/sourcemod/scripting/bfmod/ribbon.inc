@@ -98,9 +98,10 @@ void Ribbon_incClientProgress(int client, Ribbon ribbon) {
   if (clientRibbonProgress[client][ribbon] >= ribbonMaxProgress[ribbon]) {
     ++clientRibbonCount[client][ribbon];
     clientRibbonProgress[client][ribbon] = 0;
-    ClientRank_giveExp(client, ribbonExp[ribbon]);
     HudSprite_show(client, ribbonSprite[ribbon]);
-    PrintToChat(client, "ribbon complete %s you got %d", ribbonName[ribbon], ribbonExp[ribbon]);
+    int exp = ClientRank_giveExp(client, ribbonExp[ribbon]);
+    CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_ribbon", ribbonName[ribbon], exp);
+    Hud_print(client, "%s +%d", ribbonName[ribbon], exp);
   }
 }
 
