@@ -12,6 +12,7 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 
 #include "bfmod/rank"
 #include "bfmod/client_rank"
+#include "bfmod/client_cash"
 #include "bfmod/shop"
 #include "bfmod/ribbon"
 #include "bfmod/sql"

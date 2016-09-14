@@ -1,5 +1,3 @@
-int clientCash[MAXPLAYERS + 1];
-
 static char weaponList[][] = {
   "weapon_awp",
   "weapon_ak47",
@@ -18,10 +16,11 @@ public Action cmd_sm_shop(int client, int args) {
 }
 
 static bool Shop_buy(int client, int cost) {
-  if ((clientCash[client] - cost) < 0)
-    return false;
-  clientCash[client] -= cost;
-  return true;
+  if (ClientCash_canBuy(client, cost)) {
+    ClientCash_set(client, ClientCash_get(client) - cost);
+    return true;
+  }
+  return false;
 }
 
 void Shop_openMenu(int client) {
