@@ -35,7 +35,7 @@ public Action Sql_eventOnRoundEnd() {
   }
 }
 
-void Sql_loadClientData(int client) {
+static void Sql_loadClientData(int client) {
   char steamid[256];
   GetClientAuthId(client, AuthId_Steam3, steamid, sizeof(steamid));
 
@@ -64,7 +64,7 @@ void Sql_loadClientData(int client) {
   }
 }
 
-void Sql_saveClientData(int client) {
+static void Sql_saveClientData(int client) {
   char steamid[256];
   GetClientAuthId(client, AuthId_Steam3, steamid, sizeof(steamid));
 
