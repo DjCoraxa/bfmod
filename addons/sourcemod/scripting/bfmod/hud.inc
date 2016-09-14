@@ -70,7 +70,7 @@ void Hud_createElementsTimer(int client) {
 }
 
 public Action Hud_removeElements(Handle timer, any client) {
-  clientHudSpriteTimer[client] = INVALID_HANDLE;
+  clientHudElementsTimer[client] = INVALID_HANDLE;
   clientHudElementsCount[client] = 0;
   for (int i = 0; i < sizeof(clientHudElements[]); ++i) {
     strcopy(clientHudElements[client][i], sizeof(clientHudElements[][]), "");
