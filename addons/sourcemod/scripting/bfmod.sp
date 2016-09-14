@@ -33,7 +33,7 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 
 #if defined TEST_ENABLE
   #include "bfmodtest/hud_sprite_stack"
-  #include "bfmodtest/ribbon"
+  //#include "bfmodtest/ribbon"
 #endif
 
 public void OnPluginStart() {
@@ -58,7 +58,7 @@ public void OnPluginStart() {
 
   #if defined TEST_ENABLE
     TestHudSpriteStack_init();
-    TestRibbon_init();
+    //TestRibbon_init();
   #endif
 }
 
