@@ -1,14 +1,14 @@
 const int HUD_STACK_BLOCKSIZE = 90;
 
-ConVar cvarHudInterval;
-ConVar cvarTimeElementsInHud;
+static ConVar cvarHudInterval;
+static ConVar cvarTimeElementsInHud;
 
-ArrayStack clientHudStack[MAXPLAYERS + 1];
-char clientHudElements[MAXPLAYERS + 1][4][HUD_STACK_BLOCKSIZE + 1];
-int clientHudElementsCount[MAXPLAYERS + 1];
-Handle clientHudElementsTimer[MAXPLAYERS + 1];
-Handle clientHudTimer[MAXPLAYERS + 1];
-char clientRankName[MAXPLAYERS + 1][MAX_RANK_NAME_LENGTH + 1];
+static ArrayStack clientHudStack[MAXPLAYERS + 1];
+static char clientHudElements[MAXPLAYERS + 1][4][HUD_STACK_BLOCKSIZE + 1];
+static int clientHudElementsCount[MAXPLAYERS + 1];
+static Handle clientHudElementsTimer[MAXPLAYERS + 1];
+static Handle clientHudTimer[MAXPLAYERS + 1];
+static char clientRankName[MAXPLAYERS + 1][MAX_RANK_NAME_LENGTH + 1];
 
 void Hud_init() {
   cvarHudInterval = CreateConVar("bfmod_hud_interval", "1.0", "");
@@ -27,12 +27,12 @@ void Hud_eventOnPlayerSpawn(int client) {
   Rank_getName(ClientRank_getLvl(client), clientRankName[client], sizeof(clientRankName[]));
 }
 
-void Hud_create(int client) {
+static void Hud_create(int client) {
   clientHudStack[client] = new ArrayStack(HUD_STACK_BLOCKSIZE);
   clientHudTimer[client] = CreateTimer(cvarHudInterval.FloatValue, Hud_showTimer, client, TIMER_REPEAT);
 }
 
-void Hud_remove(int client) {
+static void Hud_remove(int client) {
   CloseHandle(clientHudStack[client]);
   KillTimer(clientHudTimer[client]);
 
@@ -44,7 +44,7 @@ void Hud_remove(int client) {
   Hud_removeElements(INVALID_HANDLE, client);
 }
 
-void Hud_incAllElements(int client) {
+static void Hud_incAllElements(int client) {
   strcopy(clientHudElements[client][3], sizeof(clientHudElements[][]), clientHudElements[client][2]);
   strcopy(clientHudElements[client][2], sizeof(clientHudElements[][]), clientHudElements[client][1]);
   strcopy(clientHudElements[client][1], sizeof(clientHudElements[][]), clientHudElements[client][0]);
@@ -54,13 +54,13 @@ void Hud_incAllElements(int client) {
   }
 }
 
-void Hud_addElement(int client, char[] content) {
+static void Hud_addElement(int client, char[] content) {
   Hud_incAllElements(client);
   strcopy(clientHudElements[client][0], sizeof(clientHudElements[][]), content);
   ++clientHudElementsCount[client];
 }
 
-void Hud_createElementsTimer(int client) {
+static void Hud_createElementsTimer(int client) {
   if (IsValidHandle(clientHudElementsTimer[client])) {
     KillTimer(clientHudElementsTimer[client]);
     clientHudElementsTimer[client] = INVALID_HANDLE;
@@ -91,7 +91,7 @@ void Hud_print(int client, const char[] msg, any ...) {
   Hud_createElementsTimer(client);
 }
 
-void Hud_checkElementsStack(int client) {
+static void Hud_checkElementsStack(int client) {
   if (clientHudStack[client].Empty) {
     return;
   }
