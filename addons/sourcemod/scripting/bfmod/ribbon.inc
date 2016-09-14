@@ -102,7 +102,7 @@ static void Ribbon_incClientProgress(int client, Ribbon ribbon) {
     clientRibbonProgress[client][ribbon] = 0;
     HudSprite_show(client, ribbonSprite[ribbon]);
     int exp = ClientRank_giveExpWithMSG(client, ribbonExp[ribbon], ribbonName[ribbon]);
-    Hud_print(client, "%s +%d", ribbonName[ribbon], exp);
+    Hud_print(client, "%t", "bfmod_hud_ribbon", ribbonName[ribbon], exp);
   }
 }
 

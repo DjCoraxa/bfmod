@@ -55,20 +55,23 @@ void ExpEvent_giveExpForKill(int attacker, int victim, char[] weapon) {
 
   char weaponAlias[64];
   WeaponName_get(weapon, weaponAlias, sizeof(weaponAlias));
-  Hud_print(attacker, "[%s] <font color='#DB9773'>%N</font> +%d", weaponAlias, victim, exp);
+
+  char nick[64]
+  GetClientName(victim, nick, sizeof(nick));
+  Hud_print(attacker, "%t", "bfmod_hud_kill", weaponAlias, nick, exp);
 
   ClientRank_checkLvl(attacker);
 }
 
 void ExpEvent_giveBonusExpForHS(int attacker) {
   int exp = ClientRank_giveExpWithMSG(attacker, cvarHsBonusExp.IntValue, "headshot");
-  Hud_print(attacker, "Headshot +%d", exp);
+  Hud_print(attacker, "%t", "bfmod_hud_hs", exp);
   ClientRank_checkLvl(attacker);
 }
 
 void ExpEvent_giveExpForAssist(int assister) {
   int exp = ClientRank_giveExpWithMSG(assister, cvarAssistExp.IntValue, "assist");
-  Hud_print(assister, "Assist +%d", exp)
+  Hud_print(assister, "%t", "bfmod_hud_assist", exp)
   ClientRank_checkLvl(assister);
 }
 
@@ -78,7 +81,7 @@ void ExpEvent_giveExpForBombPlant(int client) {
   }
 
   int exp = ClientRank_giveExpWithMSG(client, cvarBombPlantExp.IntValue, "plant bomb");
-  Hud_print(client, "Plant bomb +%d", exp);
+  Hud_print(client, "%t", "bfmod_hud_bomb_plant", exp);
   ClientRank_checkLvl(client);
 }
 
@@ -88,12 +91,12 @@ void ExpEvent_giveExpForBombDefuse(int client) {
   }
 
   int exp = ClientRank_giveExpWithMSG(client, cvarBombDefuseExp.IntValue, "defuse bomb");
-  Hud_print(client, "Defuse bomb +%d", exp);
+  Hud_print(client, "%t", "bfmod_hud_bomb_defuse", exp);
   ClientRank_checkLvl(client);
 }
 
 void giveExpForWinRound(int client) {
   int exp = ClientRank_giveExpWithMSG(client, cvarRoundWinExp.IntValue, "won round");
-  Hud_print(client, "Won round +%d", exp);
+  Hud_print(client, "%t", "bfmod_hud_win", exp);
   ClientRank_checkLvl(client);
 }
