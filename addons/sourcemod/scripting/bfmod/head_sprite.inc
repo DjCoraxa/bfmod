@@ -1,10 +1,10 @@
 // This code was copy from https://forums.alliedmods.net/showpost.php?p=2231099&postcount=22
 // I only change name var's and fn's
 
-ConVar cvarHeadSpriteHideTime;
+static ConVar cvarHeadSpriteHideTime;
 
-int headSprite[MAXPLAYERS + 1] = {-1, ...};
-Handle hideHeadSpriteTimer[MAXPLAYERS + 1] = {INVALID_HANDLE, ...}
+static int headSprite[MAXPLAYERS + 1] = {-1, ...};
+static Handle hideHeadSpriteTimer[MAXPLAYERS + 1] = {INVALID_HANDLE, ...}
 
 void HeadSprite_init() {
   cvarHeadSpriteHideTime = CreateConVar("bfmod_head_sprite_hide_timeout", "10.0", "Time (in sec) to autohide rank");
@@ -36,7 +36,7 @@ public Action HeadSprite_hideTimerCB(Handle timer, any client) {
   HeadSprite_safeDelete(headSprite[client]);
 }
 
-int HeadSprite_createIcon(int client) {
+static int HeadSprite_createIcon(int client) {
   char spriteBuffer[MAX_RANK_SPRITE_PATH_LENGTH + 1];
   Rank_getSprite(ClientRank_getLvl(client), spriteBuffer, sizeof(spriteBuffer));
 
@@ -61,7 +61,7 @@ int HeadSprite_createIcon(int client) {
   return -1;
 }
 
-void HeadSprite_placeAndBindIcon(int client, int entity) {
+static void HeadSprite_placeAndBindIcon(int client, int entity) {
   float origin[3];
 
   if (IsValidEntity(entity) && IsValidClient(client)) {
@@ -74,7 +74,7 @@ void HeadSprite_placeAndBindIcon(int client, int entity) {
   }
 }
 
-void HeadSprite_safeDelete(int entity) {
+static void HeadSprite_safeDelete(int entity) {
   if (IsValidEntity(entity)) {
     AcceptEntityInput(entity, "Kill");
   }
