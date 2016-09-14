@@ -10,4 +10,9 @@
     "en" "{purple}You are promoting to rank {green}{1}"
     "pl" "{purple}Awansowałeś do rangi {green}{1}"
   }
+
+  "bfmod_hud" {
+    "#format" "{1:d},{2:s},{3:d},{4:d},{5:s},{6:d}" // {1:rank_number},{2:rank_name},{3:exp},{4:nextlvl_exp},{5:perk_name},{6:cash}
+    "en" "<font size='15'>[<font color='#345FA9'>BF</font><font color='#262E73'>Mod</font>]\n[Rank: {1} - {2}]\n[Exp: {3} / {4}]\n[Perk: {5}][Cash: {6}]</font>"
+  }
 }
