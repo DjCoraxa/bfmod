@@ -5,11 +5,11 @@ const int MAX_RANK_SPRITE_PATH_LENGTH = 256;
 
 char RANK_PATH[] = "configs/bfmod/rank.kv";
 
-ArrayList rankName;
-ArrayList rankSprite;
-ArrayList rankExp;
+static ArrayList rankName;
+static ArrayList rankSprite;
+static ArrayList rankExp;
 
-int rankCount;
+static int rankCount;
 
 void Rank_init() {
   rankName = new ArrayList(MAX_RANK_NAME_LENGTH + 1);
@@ -22,7 +22,7 @@ void Rank_onMapStart() {
   Rank_precacheSprites();
 }
 
-void Rank_add(char[] name, char[] sprite, int exp) {
+static void Rank_add(char[] name, char[] sprite, int exp) {
   rankName.PushString(name);
   rankSprite.PushString(sprite);
   rankExp.Push(exp);
@@ -33,7 +33,7 @@ void Rank_add(char[] name, char[] sprite, int exp) {
   #endif
 }
 
-void Rank_parseRank() {
+static void Rank_parseRank() {
   char pathToKV[PLATFORM_MAX_PATH + 1];
   BuildPath(Path_SM, pathToKV, sizeof(pathToKV), RANK_PATH);
   KeyValues kv = new KeyValues("bfrank");
@@ -58,7 +58,7 @@ void Rank_parseRank() {
   delete kv;
 }
 
-void Rank_precacheSprites() {
+static void Rank_precacheSprites() {
   for (int i = 0; i < rankCount; ++i) {
     char spriteBuffer[MAX_RANK_SPRITE_PATH_LENGTH + 1];
     rankSprite.GetString(i, spriteBuffer, sizeof(spriteBuffer));
@@ -76,4 +76,8 @@ void Rank_getSprite(int rank, char[] buffer, int maxLength) {
 
 int Rank_getExp(int rank) {
   return rankExp.Get(rank);
+}
+
+int Rank_getCount() {
+  return rankCount;
 }
