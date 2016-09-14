@@ -39,3 +39,12 @@ int ClientRank_giveExp(int client, int exp) {
   clientExp[client] += value;
   return value;
 }
+
+int ClientRank_giveExpWithMSG(int client, int exp, const char[] msg, any ...) {
+    int len = strlen(msg) + 255;
+    char[] formattedMSG = new char[len];
+    VFormat(formattedMSG, len, msg, 4);
+    int value = ClientRank_giveExp(client, exp);
+    CPrintToChat(client, "%t", "bfmod_exp_msg", value, msg);
+    return value;
+}

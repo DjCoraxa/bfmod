@@ -51,25 +51,23 @@ void ExpEvent_eventOnRoundEnd(int winnerTeam) {
 }
 
 void ExpEvent_giveExpForKill(int attacker, int victim, char[] weapon) {
-  int exp = ClientRank_giveExp(attacker, cvarKillExp.IntValue);
-  char weaponAlias[64];
+  int exp = ClientRank_giveExpWithMSG(attacker, cvarKillExp.IntValue, "enemy kill");
 
+  char weaponAlias[64];
   WeaponName_get(weapon, weaponAlias, sizeof(weaponAlias));
-  CPrintToChat(attacker, "%s %t", MOD_NAME, "bfmod_exp_kill", exp);
   Hud_print(attacker, "[%s] <font color='#DB9773'>%N</font> +%d", weaponAlias, victim, exp);
+
   ClientRank_checkLvl(attacker);
 }
 
 void ExpEvent_giveBonusExpForHS(int attacker) {
-  int exp = ClientRank_giveExp(attacker, cvarHsBonusExp.IntValue);
-  CPrintToChat(attacker, "%s %t", MOD_NAME, "bfmod_exp_bonus_hs", exp);
-  Hud_print(attacker, "HS bonus +%d", exp);
+  int exp = ClientRank_giveExpWithMSG(attacker, cvarHsBonusExp.IntValue, "headshot");
+  Hud_print(attacker, "Headshot +%d", exp);
   ClientRank_checkLvl(attacker);
 }
 
 void ExpEvent_giveExpForAssist(int assister) {
-  int exp = ClientRank_giveExp(assister, cvarAssistExp.IntValue);
-  CPrintToChat(assister, "%s %t", MOD_NAME, "bfmod_exp_assist", exp);
+  int exp = ClientRank_giveExpWithMSG(assister, cvarAssistExp.IntValue, "assist");
   Hud_print(assister, "Assist +%d", exp)
   ClientRank_checkLvl(assister);
 }
@@ -79,8 +77,7 @@ void ExpEvent_giveExpForBombPlant(int client) {
     return;
   }
 
-  int exp = ClientRank_giveExp(client, cvarBombPlantExp.IntValue);
-  CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_bomb_plant", exp);
+  int exp = ClientRank_giveExpWithMSG(client, cvarBombPlantExp.IntValue, "plant bomb");
   Hud_print(client, "Plant bomb +%d", exp);
   ClientRank_checkLvl(client);
 }
@@ -90,15 +87,13 @@ void ExpEvent_giveExpForBombDefuse(int client) {
     return;
   }
 
-  int exp = ClientRank_giveExp(client, cvarBombDefuseExp.IntValue);
-  CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_bomb_defuse", exp);
+  int exp = ClientRank_giveExpWithMSG(client, cvarBombDefuseExp.IntValue, "defuse bomb");
   Hud_print(client, "Defuse bomb +%d", exp);
   ClientRank_checkLvl(client);
 }
 
 void giveExpForWinRound(int client) {
-  int exp = ClientRank_giveExp(client, cvarRoundWinExp.IntValue);
-  CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_round_win", exp);
+  int exp = ClientRank_giveExpWithMSG(client, cvarRoundWinExp.IntValue, "won round");
   Hud_print(client, "Won round +%d", exp);
   ClientRank_checkLvl(client);
 }

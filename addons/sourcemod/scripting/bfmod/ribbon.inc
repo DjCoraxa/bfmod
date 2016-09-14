@@ -101,8 +101,7 @@ static void Ribbon_incClientProgress(int client, Ribbon ribbon) {
     ++clientRibbonCount[client][ribbon];
     clientRibbonProgress[client][ribbon] = 0;
     HudSprite_show(client, ribbonSprite[ribbon]);
-    int exp = ClientRank_giveExp(client, ribbonExp[ribbon]);
-    CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_exp_ribbon", ribbonName[ribbon], exp);
+    int exp = ClientRank_giveExpWithMSG(client, ribbonExp[ribbon], ribbonName[ribbon]);
     Hud_print(client, "%s +%d", ribbonName[ribbon], exp);
   }
 }
