@@ -1,7 +1,7 @@
 const int RIBBON_COUNT = 7;
 const int MAX_RIBBON_SPRITE_PATH_LENGTH = 256;
 
-char RIBBON_PATH[] = "configs/bfmod/ribbon.kv"
+char RIBBON_PATH[] = "configs/bfmod/ribbon.kv";
 
 enum Ribbon {
   Ribbon_Assault = 0,
@@ -13,7 +13,7 @@ enum Ribbon {
   Ribbon_Sniper
 };
 
-char ribbonName[RIBBON_COUNT][] = {
+static char ribbonName[RIBBON_COUNT][] = {
   "Assault Rifle Ribbon",
   "Carbine Ribbon",
   "Melee Ribbon",
@@ -23,13 +23,13 @@ char ribbonName[RIBBON_COUNT][] = {
   "Sniper Rifle Ribbon"
 };
 
-int ribbonMaxProgress[RIBBON_COUNT];
-int ribbonExp[RIBBON_COUNT];
-char ribbonSprite[RIBBON_COUNT][MAX_RIBBON_SPRITE_PATH_LENGTH + 1];
-StringMap ribbonWeapons[RIBBON_COUNT];
+static int ribbonMaxProgress[RIBBON_COUNT];
+static int ribbonExp[RIBBON_COUNT];
+static char ribbonSprite[RIBBON_COUNT][MAX_RIBBON_SPRITE_PATH_LENGTH + 1];
+static StringMap ribbonWeapons[RIBBON_COUNT];
 
-int clientRibbonProgress[MAXPLAYERS + 1][RIBBON_COUNT];
-int clientRibbonCount[MAXPLAYERS + 1][RIBBON_COUNT];
+static int clientRibbonProgress[MAXPLAYERS + 1][RIBBON_COUNT];
+static int clientRibbonCount[MAXPLAYERS + 1][RIBBON_COUNT];
 
 void Ribbon_init() {
   for (int i = 0; i < sizeof(ribbonWeapons); ++i) {
@@ -57,7 +57,7 @@ void Ribbon_onClientPutInServer(int client) {
   }
 }
 
-void Ribbon_parse() {
+static void Ribbon_parse() {
   char pathToKV[PLATFORM_MAX_PATH + 1];
   BuildPath(Path_SM, pathToKV, sizeof(pathToKV), RIBBON_PATH);
   KeyValues kv = new KeyValues("ribbon");
@@ -94,7 +94,7 @@ void Ribbon_parse() {
   delete kv;
 }
 
-void Ribbon_incClientProgress(int client, Ribbon ribbon) {
+static void Ribbon_incClientProgress(int client, Ribbon ribbon) {
   ++clientRibbonProgress[client][ribbon];
 
   if (clientRibbonProgress[client][ribbon] >= ribbonMaxProgress[ribbon]) {

@@ -1,4 +1,4 @@
-ConVar cvarRankTagEnable;
+static ConVar cvarRankTagEnable;
 
 void Tag_init() {
   cvarRankTagEnable = CreateConVar("bfmod_rank_tag_enable", "1", "");

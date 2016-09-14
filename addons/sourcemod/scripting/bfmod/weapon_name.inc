@@ -7,7 +7,7 @@ void WeaponName_init() {
   WeaponName_parse();
 }
 
-void WeaponName_parse() {
+static void WeaponName_parse() {
   char pathToKV[PLATFORM_MAX_PATH + 1];
   BuildPath(Path_SM, pathToKV, sizeof(pathToKV), WEAPON_LIST_PATH);
 

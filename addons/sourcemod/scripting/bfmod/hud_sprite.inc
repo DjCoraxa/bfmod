@@ -1,9 +1,9 @@
-ConVar cvarSpriteHudTime;
+static ConVar cvarSpriteHudTime;
 
-Handle clientHudSpriteTimer[MAXPLAYERS + 1];
+static Handle clientHudSpriteTimer[MAXPLAYERS + 1];
 
 //TODO: revrite code to "FIFO stack"
-ArrayStack clientHudSpriteStack[MAXPLAYERS + 1];
+static ArrayStack clientHudSpriteStack[MAXPLAYERS + 1];
 
 void HudSprite_init() {
   cvarSpriteHudTime = CreateConVar("bfmod_hud_sprite_time", "5.0", "");

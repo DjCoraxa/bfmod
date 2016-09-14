@@ -1,10 +1,10 @@
-ConVar cvarKillExp;
-ConVar cvarAssistExp;
-ConVar cvarHsBonusExp;
-ConVar cvarBombPlantExp;
-ConVar cvarBombDefuseExp;
-ConVar cvarBombExpMinPlayer;
-ConVar cvarRoundWinExp;
+static ConVar cvarKillExp;
+static ConVar cvarAssistExp;
+static ConVar cvarHsBonusExp;
+static ConVar cvarBombPlantExp;
+static ConVar cvarBombDefuseExp;
+static ConVar cvarBombExpMinPlayer;
+static ConVar cvarRoundWinExp;
 
 void ExpEvent_init() {
   cvarKillExp = CreateConVar("bfmod_kill_exp", "100", "Exp amount from kill");

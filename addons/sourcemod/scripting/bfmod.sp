@@ -31,9 +31,17 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 #include "bfmod/hud"
 #include "bfmod/event"
 
+public Plugin myinfo = {
+	name = "BFMod",
+	author = "https://github.com/plx211/bfmod/graphs/contributors",
+	description = "",
+	version = "DEV",
+	url = "https://github.com/plx211/bfmod"
+};
+
 #if defined TEST_ENABLE
   #include "bfmodtest/hud_sprite_stack"
-  #include "bfmodtest/ribbon"
+  //#include "bfmodtest/ribbon"
 #endif
 
 public void OnPluginStart() {
@@ -58,7 +66,7 @@ public void OnPluginStart() {
 
   #if defined TEST_ENABLE
     TestHudSpriteStack_init();
-    TestRibbon_init();
+    //TestRibbon_init();
   #endif
 }
 

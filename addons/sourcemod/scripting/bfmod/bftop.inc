@@ -1,4 +1,4 @@
-Menu topMenu;
+static Menu topMenu;
 
 void BFTop_init() {
   BFTop_prepareMenu();
@@ -13,7 +13,7 @@ public Action cmd_sm_bftop(int client, int args) {
   BFTop_openMenu(client);
 }
 
-void BFTop_prepareMenu() {
+static void BFTop_prepareMenu() {
   Sql_getTopClients(15, BFTop_prepareMenuCB);
 }
 
