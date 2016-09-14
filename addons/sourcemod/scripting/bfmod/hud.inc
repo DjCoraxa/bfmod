@@ -36,7 +36,7 @@ static void Hud_remove(int client) {
   CloseHandle(clientHudStack[client]);
   KillTimer(clientHudTimer[client]);
 
-  if (IsValidHandle(clientHudElementsTimer[client])) {
+  if (clientHudElementsTimer[client] != INVALID_HANDLE) {
     KillTimer(clientHudElementsTimer[client]);
     clientHudElementsTimer[client] = INVALID_HANDLE;
   }
@@ -61,7 +61,7 @@ static void Hud_addElement(int client, char[] content) {
 }
 
 static void Hud_createElementsTimer(int client) {
-  if (IsValidHandle(clientHudElementsTimer[client])) {
+  if (clientHudElementsTimer[client] != INVALID_HANDLE) {
     KillTimer(clientHudElementsTimer[client]);
     clientHudElementsTimer[client] = INVALID_HANDLE;
   }
