@@ -7,8 +7,8 @@
 
   "bfmod_promote_rank" {
     "#format" "{1:s}"
-    "en" "{purple}You are promoting to rank {green}{1}"
-    "pl" "{purple}Awansowałeś do rangi {green}{1}"
+    "en" "{darkred}[BFMod] {purple}You are promoting to rank {green}{1}"
+    "pl" "{darkred}[BFMod] {purple}Awansowałeś do rangi {green}{1}"
   }
 
   "bfmod_hud" {

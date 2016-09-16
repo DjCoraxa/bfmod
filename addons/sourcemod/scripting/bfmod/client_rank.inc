@@ -4,7 +4,7 @@ static int clientExp[MAXPLAYERS + 1];
 void ClientRank_onLvlUp(int client, int lvl) {
   char nameBuffer[MAX_RANK_NAME_LENGTH + 1];
   Rank_getName(lvl, nameBuffer, sizeof(nameBuffer));
-  CPrintToChat(client, "%s %t", MOD_NAME, "bfmod_promote_rank", nameBuffer);
+  CPrintToChat(client, "%t", "bfmod_promote_rank", nameBuffer);
 }
 
 void ClientRank_checkLvl(int client) {
