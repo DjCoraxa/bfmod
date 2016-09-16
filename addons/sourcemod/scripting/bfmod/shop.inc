@@ -41,7 +41,7 @@ public int Shop_menuHandler(Menu menu, MenuAction action, int param1, int param2
           if (Shop_buy(param1, 20)) {
             GivePlayerItem(param1, weaponList[GetRandomInt(0, sizeof(weaponList))]);
           } else {
-            CPrintToChat(param1, "%s {green}Nie posiadasz wystarczających środków", MOD_NAME);
+            CPrintToChat(param1, "%t", "bfmod_shop_deny");
           }
         }
         case 1: {
@@ -49,7 +49,7 @@ public int Shop_menuHandler(Menu menu, MenuAction action, int param1, int param2
             CPrintToChat(param1, "%s {purple}Otrzymałeś {green}%d xp", MOD_NAME, ClientRank_giveExp(param1, GetRandomInt(1, 100)));
             ClientRank_checkLvl(param1);
           } else {
-            CPrintToChat(param1, "%s {green}Nie posiadasz wystarczających środków", MOD_NAME);
+            CPrintToChat(param1, "%t", "bfmod_shop_deny");
           }
         }
         case 2: {
@@ -57,7 +57,7 @@ public int Shop_menuHandler(Menu menu, MenuAction action, int param1, int param2
             CPrintToChat(param1, "%s {purple}Otrzymałeś {green}%d xp", MOD_NAME, ClientRank_giveExp(param1, GetRandomInt(1, 500)));
             ClientRank_checkLvl(param1);
           } else {
-            CPrintToChat(param1, "%s {green}Nie posiadasz wystarczających środków", MOD_NAME);
+            CPrintToChat(param1, "%t", "bfmod_shop_deny");
           }
         }
         case 3: {
@@ -65,7 +65,7 @@ public int Shop_menuHandler(Menu menu, MenuAction action, int param1, int param2
             CPrintToChat(param1, "%s {purple}Otrzymałeś {green}%d xp", MOD_NAME, ClientRank_giveExp(param1, GetRandomInt(1, 3000)));
             ClientRank_checkLvl(param1);
           } else {
-            CPrintToChat(param1, "%s {green}Nie posiadasz wystarczających środków", MOD_NAME);
+            CPrintToChat(param1, "%t", "bfmod_shop_deny");
           }
         }
       }

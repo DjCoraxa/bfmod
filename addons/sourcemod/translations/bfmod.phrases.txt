@@ -50,4 +50,9 @@
     "#format" "{1:s},{2:d}" // {1:ribbon_name},{2:exp}
     "en" "{1} +{2}"
   }
+
+  "bfmod_shop_deny" {
+  "en" "{darkred}[BFMod] {green}You dont have enought cash"
+  "pl" "{darkred}[BFMod] {green}Nie posiadasz wystarczających środków"
+  }
 }
