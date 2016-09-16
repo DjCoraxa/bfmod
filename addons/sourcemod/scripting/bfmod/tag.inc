@@ -1,4 +1,4 @@
-ConVar cvarRankTagEnable;
+static ConVar cvarRankTagEnable;
 
 void Tag_init() {
   cvarRankTagEnable = CreateConVar("bfmod_rank_tag_enable", "1", "");
@@ -22,6 +22,6 @@ void Tag_setRankTag(int client) {
   }
 
   char tag[64];
-  Format(tag, sizeof(tag), "[Rank %d]", clientLvl[client]);
+  Format(tag, sizeof(tag), "[Rank %d]", ClientRank_getLvl(client));
   CS_SetClientClanTag(client, tag);
 }

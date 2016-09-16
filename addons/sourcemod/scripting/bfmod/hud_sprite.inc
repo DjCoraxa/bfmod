@@ -1,9 +1,9 @@
-ConVar cvarSpriteHudTime;
+static ConVar cvarSpriteHudTime;
 
-Handle clientHudSpriteTimer[MAXPLAYERS + 1];
+static Handle clientHudSpriteTimer[MAXPLAYERS + 1];
 
 //TODO: revrite code to "FIFO stack"
-ArrayStack clientHudSpriteStack[MAXPLAYERS + 1];
+static ArrayStack clientHudSpriteStack[MAXPLAYERS + 1];
 
 void HudSprite_init() {
   cvarSpriteHudTime = CreateConVar("bfmod_hud_sprite_time", "5.0", "");
@@ -43,7 +43,7 @@ public Action HudSprite_showNextTimer(Handle timer, any client) {
   clientHudSpriteStack[client].PopString(sprite, sizeof(sprite));
   ClientCommand(client, "r_screenoverlay \"%s\"", sprite);
 
-  #if defined TEST_ENABLE
+  #if defined TEST_MODE
     PrintToConsole(client, "[BFMod:TestMode:HudSprite] Show hud sprite \"%s\"", sprite);
   #endif
 

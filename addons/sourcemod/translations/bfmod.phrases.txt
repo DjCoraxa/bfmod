@@ -1,49 +1,64 @@
 "Phrases" {
-  "bfmod_exp_kill" {
-    "#format" "{1:d}"
-    "en" "{purple}You got {green}{1} xp {purple}for {green}killing player"
-    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}za {green}zabicie gracza"
-  }
-
-  "bfmod_exp_bonus_hs" {
-    "#format" "{1:d}"
-    "en" "{purple}You got {green}{1} xp {purple}extra for {green}HS"
-    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}bonusu za {green}HS"
-  }
-
-  "bfmod_exp_assist" {
-    "#format" "{1:d}"
-    "en" "{purple}You got {green}{1} xp {purple}for {green}assist"
-    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}za {green}asyste"
-  }
-
-  "bfmod_exp_bomb_plant" {
-    "#format" "{1:d}"
-    "en" "{purple}You got {green}{1} xp {purple}for {green}plant bomb"
-    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}za {green}podłożenie paki"
-  }
-
-  "bfmod_exp_bomb_defuse" {
-    "#format" "{1:d}"
-    "en" "{purple}You got {green}{1} xp {purple}for {green}defuse bomb"
-    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}za {green}rozbrojenie paki"
-  }
-
-  "bfmod_exp_round_win" {
-    "#format" "{1:d}"
-    "en" "{purple}You got {green}{1} xp {purple}for {green}win round"
-    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}za {green}wygranie rundy"
+  "bfmod_exp_msg" {
+    "#format" "{1:d},{2:s}"
+    "en" "{darkred}[BFMod] {purple}You got {green}{1} xp {purple}for {green}{2}"
+    "pl" "{darkred}[BFMod] {purple}Otrzymałeś {green}{1} xp {purple}za {green}{2}"
   }
 
   "bfmod_promote_rank" {
     "#format" "{1:s}"
-    "en" "{purple}You are promoting to rank {green}{1}"
-    "pl" "{purple}Awansowałeś do rangi {green}{1}"
+    "en" "{darkred}[BFMod] {purple}You are promoting to rank {green}{1}"
+    "pl" "{darkred}[BFMod] {purple}Awansowałeś do rangi {green}{1}"
   }
 
-  "bfmod_exp_combo_bonus" {
-    "#format" "{1:d},{2:d}"
-    "en" "{purple}You got {green}{1} xp {purple}bonus for {green}combo x{2}"
-    "pl" "{purple}Otrzymałeś {green}{1} xp {purple}bonusu za {green}combo x{2}"
+  "bfmod_hud" {
+    "#format" "{1:d},{2:s},{3:d},{4:d},{5:s},{6:d}" // {1:rank_number},{2:rank_name},{3:exp},{4:nextlvl_exp},{5:perk_name},{6:cash}
+    "en" "<font size='15'>[<font color='#345FA9'>BF</font><font color='#262E73'>Mod</font>]\n[Rank: {1} - {2}]\n[Exp: {3} / {4}]\n[Perk: {5}][Cash: {6}]</font>"
+  }
+
+  "bfmod_hud_kill" {
+    "#format" "{1:s},{2:s},{3:d}" // {1:weapon},{2:victim},{3:exp}
+    "en" "[{1}] <font color='#DB9773'>{2}</font> +{3}"
+  }
+
+  "bfmod_hud_hs" {
+    "#format" "{1:d}" // {1:exp}
+    "en" "Headshot +{1}"
+  }
+
+  "bfmod_hud_assist" {
+    "#format" "{1:d}" // {1:exp}
+    "en" "Assist +{1}"
+  }
+
+  "bfmod_hud_bomb_plant" {
+    "#format" "{1:d}" // {1:exp}
+    "en" "Bomb plant +{1}"
+  }
+
+  "bfmod_hud_bomb_defuse" {
+    "#format" "{1:d}" // {1:exp}
+    "en" "Bomb defuse +{1}"
+  }
+
+  "bfmod_hud_win" {
+    "#format" "{1:d}" // {1:exp}
+    "en" "Won round +{1}"
+  }
+
+  "bfmod_hud_ribbon" {
+    "#format" "{1:s},{2:d}" // {1:ribbon_name},{2:exp}
+    "en" "{1} +{2}"
+  }
+
+  "bfmod_shop_deny" {
+    "en" "{darkred}[BFMod] {green}You dont have enought cash"
+    "pl" "{darkred}[BFMod] {green}Nie posiadasz wystarczających środków"
+  }
+
+  "bfmod_shop_exp" {
+    "#format" "{1:d}" // {1:exp}
+    "en" "{darkred}[BFMod] {purple}You got {green}{1} xp"
+    "pl" "{darkred}[BFMod] {purple}Otrzymałeś {green}{1} xp"
   }
 }

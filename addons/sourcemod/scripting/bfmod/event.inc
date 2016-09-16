@@ -10,7 +10,6 @@ void Event_init() {
 public Action Event_onPlayerSpawn(Event event, const char[] name, bool dontBroadcast) {
   int client = GetClientOfUserId(event.GetInt("userid"));
   HeadSprite_eventOnPlayerSpawn(client);
-  SpawnBonus_eventOnPlayerSpawn(client);
   Tag_eventOnPlayerSpawn(client);
   Hud_eventOnPlayerSpawn(client);
 }
@@ -30,6 +29,8 @@ public Action Event_onPlayerDeath(Event event, const char[] name, bool dontBroad
 
   HeadSprite_eventOnPlayerDeath(victim);
   ExpEvent_eventOnPlayerDeath(victim, attacker, assister, weaponBuffer, hs);
+  Ribbon_eventOnPlayerDeath(attacker, weaponBuffer);
+  ClientCash_eventOnPlayerDeath(attacker, hs);
 }
 
 public Action Event_onBombPlant(Event event, const char[] name, bool dontBroadcast) {

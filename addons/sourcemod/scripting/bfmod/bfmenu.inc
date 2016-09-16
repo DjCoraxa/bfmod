@@ -11,7 +11,6 @@ void BFMenu_openMenu(int client) {
   menu.SetTitle("BFMod menu");
   menu.AddItem("perk", "Choose perk [!perk]");
   menu.AddItem("perkdesc", "Perk desc [!perks]");
-  menu.AddItem("bonus", "Bonus list [!bonus]");
   menu.AddItem("top", "Top15 rank [!bftop]");
   menu.AddItem("shop", "Shop menu [!shop]");
   menu.Display(client, 60);
@@ -23,9 +22,8 @@ public int BFMenu_MenuHandler(Menu menu, MenuAction action, int param1, int para
       switch (param2) {
         case 0: PerkMenu_openMenu(param1);
         case 1: PerkDescMenu_openMenu(param1);
-        case 2: BonusMenu_openMenu(param1);
-        case 3: BFTop_openMenu(param1);
-        case 4: Shop_openMenu(param1);
+        case 2: BFTop_openMenu(param1);
+        case 3: Shop_openMenu(param1);
       }
     }
   } else if (action == MenuAction_End) {
