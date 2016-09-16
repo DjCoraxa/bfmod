@@ -32,7 +32,8 @@ void ClientRank_setExp(int client, int exp) {
 }
 
 int ClientRank_giveExp(int client, int exp) {
-  return clientExp[client] += exp;
+  clientExp[client] += exp
+  return exp;
 }
 
 int ClientRank_giveExpWithMSG(int client, int exp, const char[] msg, any ...) {
