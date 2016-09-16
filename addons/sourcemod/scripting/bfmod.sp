@@ -33,7 +33,7 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 
 public Plugin myinfo = {
 	name = "BFMod",
-	author = "https://github.com/plx211/bfmod/graphs/contributors",
+	author = "http://steamcommuinty.com/id/plx211",
 	description = "",
 	#if defined BFMOD_VERSION
 		version = BFMOD_VERSION
