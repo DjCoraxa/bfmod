@@ -7,7 +7,7 @@
 char MOD_NAME[] = "{darkred}[BFMod]";
 
 #tryinclude "bfmod/version"
-#define TEST_ENABLE
+#tryinclude "bfmod/test_mode"
 
 #include "bfmod/helper"
 
