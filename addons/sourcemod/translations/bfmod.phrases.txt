@@ -52,7 +52,13 @@
   }
 
   "bfmod_shop_deny" {
-  "en" "{darkred}[BFMod] {green}You dont have enought cash"
-  "pl" "{darkred}[BFMod] {green}Nie posiadasz wystarczających środków"
+    "en" "{darkred}[BFMod] {green}You dont have enought cash"
+    "pl" "{darkred}[BFMod] {green}Nie posiadasz wystarczających środków"
+  }
+
+  "bfmod_shop_exp" {
+    "#format" "{1:d}" // {1:exp}
+    "en" "{darkred}[BFMod] {purple}You got {green}{1} xp"
+    "pl" "{darkred}[BFMod] {purple}Otrzymałeś {green}{1} xp"
   }
 }
