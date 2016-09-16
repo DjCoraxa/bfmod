@@ -8,4 +8,8 @@ void Helper_precacheSprite(char[] sprite) {
   PrecacheDecal(buffer, true);
   Format(buffer, sizeof(buffer), "materials/%s.vmt", sprite);
   AddFileToDownloadsTable(buffer);
+
+  #if defined TEST_MODE
+    PrintToServer("[BFMod:TestMode:Helper] Precache sprite \"%s\"", sprite);
+  #endif
 }

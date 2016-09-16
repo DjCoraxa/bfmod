@@ -35,6 +35,9 @@ public void BFTop_prepareMenuCB(Database db, DBResultSet results, const char[] e
     results.FetchString(0, name, sizeof(name));
     Format(buffer, sizeof(buffer), "[Pos %d] %s [Rank %d][Exp %d / %d][Cash %d]", i, name, results.FetchInt(1), results.FetchInt(2), Rank_getExp(results.FetchInt(1)), results.FetchInt(3));
     topMenu.AddItem("top", buffer);
+    #if defined TEST_MODE
+      PrintToServer("[BFMod:TestMode:BFTop] Add %s", buffer);
+    #endif
   }
 }
 

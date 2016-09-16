@@ -42,6 +42,10 @@ static void Sql_loadClientData(int client) {
   char queryLoad[256];
   Format(queryLoad, sizeof(queryLoad), "SELECT lvl, exp, cash FROM bfmod WHERE steamid = '%s'", steamid);
 
+  #if defined TEST_MODE
+    PrintToServer("[BFMod:TestMode:Sql] %s", queryLoad);
+  #endif
+
   DBResultSet query = SQL_Query(db, queryLoad);
 
   if (query == null) {
@@ -78,13 +82,19 @@ static void Sql_saveClientData(int client) {
   Format(querySave, sizeof(querySave), "INSERT OR REPLACE INTO bfmod(steamid, lvl, exp, name, cash) VALUES(\"%s\", %d, %d, \"%s\", %d)", steamid, ClientRank_getLvl(client), ClientRank_getExp(client), buffer, ClientCash_get(client));
   db.Query(saveQuertCB, querySave);
 
-  PrintToServer("[BFMod][Save] client: %N lvl: %d exp: %d", client, ClientRank_getLvl(client), ClientRank_getExp(client));
+  #if defined TEST_MODE
+    PrintToServer("[BFMod:TestMode:Sql] %s", querySave);
+  #endif
 }
 
 void Sql_getTopClients(int count, SQLQueryCallback callback) {
   char queryTop[256];
   Format(queryTop, sizeof(queryTop), "SELECT name, lvl, exp, cash FROM bfmod ORDER BY lvl DESC, exp DESC LIMIT %d;", count);
   db.Query(callback, queryTop);
+
+  #if defined TEST_MODE
+    PrintToServer("[BFMod:TestMode:Sql] %s", queryTop);
+  #endif
 }
 
 public void saveQuertCB(Handle owner, Handle hndl, const char[] error, any data) {}
