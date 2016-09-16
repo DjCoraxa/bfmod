@@ -43,7 +43,7 @@ public Plugin myinfo = {
 	url = "https://github.com/plx211/bfmod"
 };
 
-#if defined TEST_ENABLE
+#if defined TEST_MODE
   #include "bfmodtest/hud_sprite_stack"
   //#include "bfmodtest/ribbon"
 #endif
@@ -67,7 +67,7 @@ public void OnPluginStart() {
   Ribbon_init();
   AutoExecConfig(true, "bfmod");
 
-  #if defined TEST_ENABLE
+  #if defined TEST_MODE
     TestHudSpriteStack_init();
     //TestRibbon_init();
   #endif

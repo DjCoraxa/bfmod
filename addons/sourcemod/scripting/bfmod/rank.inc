@@ -26,7 +26,7 @@ static void Rank_add(char[] name, char[] sprite, int exp) {
   rankExp.Push(exp);
   ++rankCount;
 
-  #if defined TEST_ENABLE
+  #if defined TEST_MODE
     PrintToServer("[BFMod:TestMode:Rank] Add rank #%d Name=\"%s\" sprite=\"%s\" exp=%d", rankCount, name, sprite, exp);
   #endif
 }

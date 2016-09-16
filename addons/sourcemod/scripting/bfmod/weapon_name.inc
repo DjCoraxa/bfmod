@@ -31,7 +31,7 @@ static void WeaponName_parse() {
 
     weaponAlias.SetString(keyBuffer, buffer, true);
 
-    #if defined TEST_ENABLE
+    #if defined TEST_MODE
       PrintToServer("[BFMod:TestMode:WeaponName] Add alias key=\"%s\" value=\"%s\"", keyBuffer, buffer);
     #endif
   } while (kv.GotoNextKey(false));

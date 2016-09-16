@@ -82,7 +82,7 @@ static void Ribbon_parse() {
         do {
           kv.GetString(NULL_STRING, weaponBuffer, sizeof(weaponBuffer));
           ribbonWeapons[i].SetValue(weaponBuffer, 1);
-          #if defined TEST_ENABLE
+          #if defined TEST_MODE
             PrintToServer("[BFMod:TestMod:Ribbon] Add \"%s\" to \"%s\"", weaponBuffer, ribbonName[i]);
           #endif
         } while (kv.GotoNextKey(false));
