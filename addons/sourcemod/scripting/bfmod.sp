@@ -6,6 +6,7 @@
 
 char MOD_NAME[] = "{darkred}[BFMod]";
 
+#tryinclude "bfmod/version"
 #define TEST_ENABLE
 
 #include "bfmod/helper"
@@ -34,7 +35,11 @@ public Plugin myinfo = {
 	name = "BFMod",
 	author = "https://github.com/plx211/bfmod/graphs/contributors",
 	description = "",
-	version = "DEV",
+	#if defined BFMOD_VERSION
+		version = BFMOD_VERSION
+	#else
+		version = "DEV",
+	#endif
 	url = "https://github.com/plx211/bfmod"
 };
 
