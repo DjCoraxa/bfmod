@@ -20,8 +20,6 @@ char MOD_NAME[] = "{darkred}[BFMod]";
 #include "bfmod/exp_event"
 #include "bfmod/hud_sprite"
 #include "bfmod/tag"
-#include "bfmod/spawn_bonus"
-#include "bfmod/bonus_menu"
 #include "bfmod/perk"
 #include "bfmod/perk_menu"
 #include "bfmod/perk_descmenu"
@@ -49,7 +47,6 @@ public void OnPluginStart() {
   LoadTranslations("bfmod.phrases.txt");
   Rank_init();
   Sql_init();
-  BonusMenu_init();
   PerkMenu_init();
   PerkDescMenu_init();
   BFMenu_init();

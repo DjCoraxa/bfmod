@@ -10,7 +10,6 @@ void Event_init() {
 public Action Event_onPlayerSpawn(Event event, const char[] name, bool dontBroadcast) {
   int client = GetClientOfUserId(event.GetInt("userid"));
   HeadSprite_eventOnPlayerSpawn(client);
-  SpawnBonus_eventOnPlayerSpawn(client);
   Tag_eventOnPlayerSpawn(client);
   Hud_eventOnPlayerSpawn(client);
 }
