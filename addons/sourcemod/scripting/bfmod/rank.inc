@@ -1,5 +1,3 @@
-int VIP_BONUS_EXP = 20;
-
 const int MAX_RANK_NAME_LENGTH = 256;
 const int MAX_RANK_SPRITE_PATH_LENGTH = 256;
 

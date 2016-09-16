@@ -32,12 +32,7 @@ void ClientRank_setExp(int client, int exp) {
 }
 
 int ClientRank_giveExp(int client, int exp) {
-  int value = exp
-  if (GetUserFlagBits(client) & ADMFLAG_RESERVATION) {
-    value += VIP_BONUS_EXP;
-  }
-  clientExp[client] += value;
-  return value;
+  return clientExp[client] += exp;
 }
 
 int ClientRank_giveExpWithMSG(int client, int exp, const char[] msg, any ...) {
